@@ -1,0 +1,15 @@
+.sheet-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 20px 20%;
+    border: 2px solid red;
+}
+
+.auth-container {
+    margin: auto;
+}
+
+h3, h4 {
+    text-align: center;
+}

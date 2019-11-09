@@ -1,0 +1,13 @@
+.navbar-container {
+    display: flex;
+    border: 2px solid black;
+    padding: 10px;
+}
+
+.navbar-title {
+    margin: 0 auto 0 5px;
+}
+
+.navbar-login {
+    margin: 0 5px 0 auto;
+}
