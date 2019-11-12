@@ -1,6 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
-const LandingPage = () => {
+
+const LandingPage = (props) => {
+    console.log(props)
     return (
         <div>
             LandingPage
@@ -8,4 +11,11 @@ const LandingPage = () => {
     )
 }
 
-export default LandingPage;
+const mapStateToProps = (state) => {
+    return {
+        currentUserId: state.auth.userId,
+        isSignedIn: state.auth.isSignedIn
+    }
+}
+
+export default connect(mapStateToProps)(LandingPage);

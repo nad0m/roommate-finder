@@ -1,15 +1,10 @@
 import React from 'react';
+import GoogleAuth from './GoogleAuth';
 
 const Auth = () => {
 
     return (
-        <div className="auth-container">
-           <button className="ui red google button">
-                <i className="google icon" />
-                Sign out
-            </button> 
-        </div>
-        
+        <GoogleAuth /> 
     )
 }
 

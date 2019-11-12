@@ -4,8 +4,8 @@ import Auth from './Auth';
 const SignInForm = ( { header, detail}) => {
 
     return (
-        <React.Fragment>
-            <div className="header-container">
+        <div className="sheet-container">
+            <div>
                 <h3>
                     {header}
                 </h3>
@@ -14,8 +14,10 @@ const SignInForm = ( { header, detail}) => {
                 </h4>
             </div>
 
-            <Auth />
-        </React.Fragment>
+            <div className="auth-container">
+                <Auth />
+            </div>
+        </div>
     );
 }
 

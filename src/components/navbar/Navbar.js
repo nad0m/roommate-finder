@@ -12,6 +12,12 @@ const Navbar = () => {
                 </Link>
             </div>
 
+            <div className="navbar-tabs">
+                <Link to="/profile">
+                    Profile
+                </Link>
+            </div>
+
             <div className="navbar-login">
                 <Link to="/sign_in">
                     Login

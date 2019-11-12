@@ -2,12 +2,12 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin: 20px 20%;
-    border: 2px solid red;
+    margin: 10px 20%;
 }
 
-.auth-container {
-    margin: auto;
+img {
+    width: 80px;
+    height: 30px;
 }
 
 h3, h4 {

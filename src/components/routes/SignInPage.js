@@ -2,6 +2,9 @@ import React from 'react';
 import SignUp from '../signin/SignUp';
 import Login from '../signin/Login';
 
+import '../signin/sheet.css';
+import '../signin/auth.css';
+
 class SignInPage extends React.PureComponent {
     
     state = {

@@ -1,0 +1,27 @@
+.profile-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.header-container {
+    display: flex;
+    margin: 20px auto;
+    align-items: center;
+    flex-direction: column;
+}
+
+.header-container > button {
+    align-self: flex-end;
+}
+
+.details {
+    display: flex;
+    flex-direction: row;
+    margin: 0 auto;
+}
+
+.map-icon {
+    display: inline-flex;
+    margin: 0 5px;
+    font-size: 5px;
+}
