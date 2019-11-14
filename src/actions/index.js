@@ -1,5 +1,8 @@
-import { SIGN_IN, 
-        SIGN_OUT } from './types';
+import { 
+    SIGN_IN, 
+    SIGN_OUT,
+    SAVE_AUTH_INSTANCE 
+} from './types';
 
 export const signIn = (userId) => {
     return {
@@ -11,6 +14,13 @@ export const signIn = (userId) => {
 export const signOut = () => {
     return {
         type: SIGN_OUT
+    };
+}
+
+export const saveAuthInstance = (instance) => {
+    return {
+        type: SAVE_AUTH_INSTANCE,
+        payload: instance
     };
 }
 

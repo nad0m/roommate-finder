@@ -7,7 +7,7 @@ import Navbar from './navbar/Navbar';
 import LandingPage from './routes/LandingPage';
 import SignInPage from './routes/SignInPage';
 import ProfilePage from './routes/ProfilePage';
-import { signIn, signOut } from '../actions';
+import { signIn, signOut, saveAuthInstance } from '../actions';
 
 class App extends React.Component {
     componentDidMount() {
@@ -19,9 +19,9 @@ class App extends React.Component {
                 this.auth = window.gapi.auth2.getAuthInstance();
                 this.onAuthChange(this.auth.isSignedIn.get());
                 this.auth.isSignedIn.listen(this.onAuthChange);
+                this.props.saveAuthInstance(this.auth);
             });
         });
-
     }
 
     onAuthChange = (isSignedIn) => {
@@ -54,5 +54,5 @@ const mapStateToProps = (state) => {
     return { isSignedIn: state.auth.isSignedIn, userId: state.auth.userId };
 }
 
-export default connect(mapStateToProps, { signIn, signOut })(App);
+export default connect(mapStateToProps, { signIn, signOut, saveAuthInstance })(App);
 
