@@ -21,6 +21,7 @@ class App extends React.Component {
                 this.auth.isSignedIn.listen(this.onAuthChange);
             });
         });
+
     }
 
     onAuthChange = (isSignedIn) => {
