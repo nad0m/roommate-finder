@@ -11,7 +11,7 @@ class ProfileHeader extends React.Component {
         this.setState({ editProfile: true });
     }
 
-    renderComponents = () => {
+    renderModal = () => {
         if (this.state.editProfile)
             return <ProfileEditModal onDismiss={() => this.setState({ editProfile: false })} />;
     }
@@ -46,7 +46,7 @@ class ProfileHeader extends React.Component {
                             </div>
                         </div>
                 </h2>
-                {this.renderComponents()}
+                {this.renderModal()}
             </div> 
         );
     }
