@@ -18,10 +18,12 @@ import { FIREBASE_CONFIG } from '../configs/config';
 class App extends React.Component {
 
     state = {
-        isSignedIn: false
+        isSignedIn: null
     }
 
-    componentDidMount() {
+    constructor(props) {
+        super(props);
+
         if (!firebase.apps.length) {
             firebase.initializeApp(FIREBASE_CONFIG);
         }
@@ -33,12 +35,24 @@ class App extends React.Component {
     onAuthChange = (user) => {
         if (user) {
             const { uid, displayName, email, photoURL } = user;
-            this.props.saveCurrentUser({ uid, displayName, email, photoURL })
+            this.props.saveCurrentUser({ uid, displayName, email, photoURL });
             this.props.signIn(uid);
-            this.setState({isSignedIn: true});
         } else {
             this.props.signOut();
-            this.setState({isSignedIn: false});
+        }
+
+        this.setState({ isSignedIn: this.props.isSignedIn });
+    }
+
+    renderRoutes() {
+        if (this.state.isSignedIn !== null) {
+            return (
+                <React.Fragment>
+                    <Route path="/" exact component={LandingPage} />
+                    <Route path="/sign_in" exact component={SignInPage} />
+                    <PrivateRoute authed={this.state.isSignedIn} path="/profile" component={ProfilePage} />
+                </React.Fragment>
+            );
         }
     }
 
@@ -48,13 +62,11 @@ class App extends React.Component {
                 <Router history={history}>
                     <div>
                         <Navbar />
-                        <Route path="/" exact component={LandingPage} />
-                        <Route path="/sign_in" exact component={SignInPage} />
-                        <PrivateRoute authed={this.state.isSignedIn} path="/profile" component={ProfilePage} />
+                        {this.renderRoutes()}
                     </div>
                 </Router>
             </div>
-        )
+        );
     }
     
 }
