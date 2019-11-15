@@ -3,6 +3,7 @@ import NameField from './NameField';
 import DobField from './DobField';
 import LocationField from './LocationField';
 import GenderField from './GenderField';
+import { connect } from 'react-redux';
 
 class ProfileEdit extends React.Component {
 
@@ -41,7 +42,7 @@ class ProfileEdit extends React.Component {
     }
 
     render() {
-        var docRef = window.db.collection("users").doc("jyqJj1byMz1gUy5jnkg0");
+        /*var docRef = window.db.collection("users").doc("jyqJj1byMz1gUy5jnkg0");
 
         docRef.get().then(function(doc) {
             if (doc.exists) {
@@ -52,7 +53,7 @@ class ProfileEdit extends React.Component {
             }
         }).catch(function(error) {
             console.log("Error getting document:", error);
-        });
+        });*/
 
         return (
             <div className="ui form profile-edit-container" onClick={(e) => e.stopPropagation()}>
@@ -81,4 +82,8 @@ class ProfileEdit extends React.Component {
     
 }
 
-export default ProfileEdit;
+const mapStateToProps = (state) => {
+    return { userProfile: state.profile.userProfile };
+}
+
+export default connect(mapStateToProps)(ProfileEdit);

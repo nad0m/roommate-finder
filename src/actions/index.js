@@ -1,7 +1,8 @@
 import { 
     SIGN_IN, 
     SIGN_OUT,
-    SAVE_AUTH_INSTANCE 
+    SAVE_FIREBASE_INSTANCE,
+    SAVE_CURRENT_USER
 } from './types';
 
 export const signIn = (userId) => {
@@ -17,10 +18,16 @@ export const signOut = () => {
     };
 }
 
-export const saveAuthInstance = (instance) => {
+export const saveFirebaseInstance = (instance) => {
     return {
-        type: SAVE_AUTH_INSTANCE,
+        type: SAVE_FIREBASE_INSTANCE,
         payload: instance
     };
 }
 
+export const saveCurrentUser = (user) => {
+    return {
+        type: SAVE_CURRENT_USER,
+        payload: user
+    };
+}
