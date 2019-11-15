@@ -8,12 +8,14 @@ import Navbar from './navbar/Navbar';
 import LandingPage from './routes/LandingPage';
 import SignInPage from './routes/SignInPage';
 import ProfilePage from './routes/ProfilePage';
-import { signIn, signOut, saveFirebaseInstance, saveCurrentUser } from '../actions';
+import { signIn, signOut, saveFirebaseInstance, saveAuthProfile } from '../actions';
 
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
+import 'firebase/firestore';
 import { FIREBASE_CONFIG } from '../configs/config';
+import { addNewUser, getUser } from '../db/firestore';
 
 class App extends React.Component {
 
@@ -32,10 +34,17 @@ class App extends React.Component {
         this.props.saveFirebaseInstance(firebase);
     }
 
+    onNewUserSignUp = (userIsNew) => {
+        if (userIsNew) {
+            addNewUser(firebase.firestore(), this.props.authProfile);
+        }
+    }
+
     onAuthChange = (user) => {
         if (user) {
-            const { uid, displayName, email, photoURL } = user;
-            this.props.saveCurrentUser({ uid, displayName, email, photoURL });
+            const { uid, displayName, email, photoURL, emailVerified } = user;
+            getUser(firebase.firestore(), uid, this.onNewUserSignUp);
+            this.props.saveAuthProfile({ uid, displayName, email, photoURL, emailVerified });
             this.props.signIn(uid);
         } else {
             this.props.signOut();
@@ -72,8 +81,8 @@ class App extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    return { isSignedIn: state.auth.isSignedIn, userId: state.auth.userId };
+    return { isSignedIn: state.auth.isSignedIn, userId: state.auth.userId, authProfile: state.auth.authProfile };
 }
 
-export default connect(mapStateToProps, { signIn, signOut, saveFirebaseInstance, saveCurrentUser })(App);
+export default connect(mapStateToProps, { signIn, signOut, saveFirebaseInstance, saveAuthProfile })(App);
 
