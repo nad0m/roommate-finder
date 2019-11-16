@@ -1,34 +1,61 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Router, Route } from 'react-router-dom';
+import PrivateRoute from './routes/PrivateRoute';
 import history from '../history';
 
 import Navbar from './navbar/Navbar';
 import LandingPage from './routes/LandingPage';
 import SignInPage from './routes/SignInPage';
 import ProfilePage from './routes/ProfilePage';
-import { signIn, signOut } from '../actions';
+import { signIn, signOut, saveFirebaseInstance, saveAuthProfile, saveCurrentUser } from '../actions';
+
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/database';
+import 'firebase/firestore';
+import { FIREBASE_CONFIG } from '../configs/config';
 
 class App extends React.Component {
-    componentDidMount() {
-        window.gapi.load('client:auth2', () => {
-            window.gapi.client.init({
-                clientId: '1074283388516-23f5ml9apt4psohnm4r7vp1chs55jdf4.apps.googleusercontent.com',
-                scope: 'email'
-            }).then(() => {
-                this.auth = window.gapi.auth2.getAuthInstance();
-                this.onAuthChange(this.auth.isSignedIn.get());
-                this.auth.isSignedIn.listen(this.onAuthChange);
-            });
-        });
+
+    state = {
+        isSignedIn: null
     }
 
-    onAuthChange = (isSignedIn) => {
-        if (isSignedIn) {
-            const id = this.auth.currentUser.get().getId();
-            this.props.signIn(id);
+    constructor(props) {
+        super(props);
+
+        if (!firebase.apps.length) {
+            firebase.initializeApp(FIREBASE_CONFIG);
+        }
+
+        firebase.auth().onAuthStateChanged(this.onAuthChange);
+        this.props.saveFirebaseInstance(firebase);
+    }
+
+    onAuthChange = (user) => {
+        if (user) {
+            const { uid, displayName, email, photoURL, emailVerified } = user;
+            const data = { uid, displayName, email, photoURL, emailVerified };
+            this.props.saveAuthProfile(data);
+            this.props.signIn(data.uid);
+            this.props.saveCurrentUser(data);
         } else {
             this.props.signOut();
+        }
+
+        this.setState({ isSignedIn: this.props.isSignedIn });
+    }
+
+    renderRoutes() {
+        if (this.state.isSignedIn !== null) {
+            return (
+                <React.Fragment>
+                    <Route path="/" exact component={LandingPage} />
+                    <Route path="/sign_in" exact component={SignInPage} />
+                    <PrivateRoute authed={this.state.isSignedIn} path="/profile" component={ProfilePage} />
+                </React.Fragment>
+            );
         }
     }
 
@@ -38,20 +65,18 @@ class App extends React.Component {
                 <Router history={history}>
                     <div>
                         <Navbar />
-                        <Route path="/" exact component={LandingPage} />
-                        <Route path="/sign_in" exact component={SignInPage} />
-                        <Route path="/profile" exact component={ProfilePage} />
+                        {this.renderRoutes()}
                     </div>
                 </Router>
             </div>
-        )
+        );
     }
     
 }
 
 const mapStateToProps = (state) => {
-    return { isSignedIn: state.auth.isSignedIn, userId: state.auth.userId };
+    return { isSignedIn: state.auth.isSignedIn, userId: state.auth.userId, authProfile: state.auth.authProfile };
 }
 
-export default connect(mapStateToProps, { signIn, signOut })(App);
+export default connect(mapStateToProps, { signIn, signOut, saveFirebaseInstance, saveAuthProfile, saveCurrentUser })(App);
 

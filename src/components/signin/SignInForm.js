@@ -1,7 +1,7 @@
 import React from 'react';
-import Auth from './Auth';
+import GoogleAuth from './GoogleAuth';
 
-const SignInForm = ( { header, detail}) => {
+const SignInForm = ( { header, detail} ) => {
 
     return (
         <div className="sheet-container">
@@ -15,7 +15,7 @@ const SignInForm = ( { header, detail}) => {
             </div>
 
             <div className="auth-container">
-                <Auth />
+                <GoogleAuth />
             </div>
         </div>
     );

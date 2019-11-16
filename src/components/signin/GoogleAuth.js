@@ -4,19 +4,6 @@ import { signIn, signOut } from '../../actions';
 
 class GoogleAuth extends React.Component {
 
-    componentDidMount() {
-        window.gapi.load('client:auth2', () => {
-            window.gapi.client.init({
-                clientId: '1074283388516-23f5ml9apt4psohnm4r7vp1chs55jdf4.apps.googleusercontent.com',
-                scope: 'email'
-            }).then(() => {
-                this.auth = window.gapi.auth2.getAuthInstance();
-                this.onAuthChange(this.auth.isSignedIn.get());
-                this.auth.isSignedIn.listen(this.onAuthChange);
-            });
-        });
-    }
-
     render() {
         return (
             <div>
@@ -26,26 +13,28 @@ class GoogleAuth extends React.Component {
     }
 
     onSignInClick = () => {
-        this.auth.signIn();
+        const provider = new this.props.firebase.auth.GoogleAuthProvider();
+        this.props.firebase.auth().signInWithPopup(provider).then(function(result) {
+            console.log("sign in successful");
+        }).catch(function(error) {
+            console.log(error);
+        });
     }
 
     onSignOutClick = () => {
-        this.auth.signOut();
-    }
-    
-    onAuthChange = (isSignedIn) => {
-        if (isSignedIn) {
-            const id = this.auth.currentUser.get().getId();
-            this.props.signIn(id);
-        } else {
-            this.props.signOut();
-        }
+        this.props.firebase.auth().signOut().then(function() {
+            console.log("sign out successful");
+        }).catch(function(error) {
+            console.log(error);
+        });
     }
 
     renderAuthButton() {
-        if (this.props.isSignedIn === null) {
+        const instance = this.props.firebase;
+        if (instance === null) {
             return null;
-        } else if (this.props.isSignedIn) {
+        } else if (instance.auth().currentUser) {
+            
             return(
                 <div className="google-btn" onClick={this.onSignOutClick}>
                     <div className="google-icon-wrapper">
@@ -68,7 +57,7 @@ class GoogleAuth extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    return { isSignedIn: state.auth.isSignedIn, userId: state.auth.userId };
+    return { isSignedIn: state.auth.isSignedIn, userId: state.auth.userId, firebase: state.db.firebase };
 }
 
 export default connect(mapStateToProps, { signIn, signOut })(GoogleAuth);

@@ -1,11 +1,10 @@
 import React from 'react';
 import ProfileEditModal from '../../modals/ProfileEditModal';
+import { connect } from 'react-redux';
 
 class ProfileHeader extends React.Component { 
     
-    state = {
-        editProfile: false
-    }
+    state = { editProfile: false };
 
     showModal = () => {
         this.setState({ editProfile: true });
@@ -14,6 +13,11 @@ class ProfileHeader extends React.Component {
     renderModal = () => {
         if (this.state.editProfile)
             return <ProfileEditModal onDismiss={() => this.setState({ editProfile: false })} />;
+    }
+
+    componentDidMount() {
+        console.log(this.props.userProfile);
+        this.setState({ ...this.state, ...this.props.userProfile})
     }
 
     render () {
@@ -25,7 +29,7 @@ class ProfileHeader extends React.Component {
                 <h2 className="ui icon header" style={{marginTop: '0px'}}>
                     <img src="https://dvokhk8ohqhd8.cloudfront.net/assets/avatars/candidates/butch_cut-8ce1ba744d7a8255518bdda864804fa90ec4dafe0169af4f4ecb2f87d6221d69.svg" alt="blah" className="ui image"/>
                         <div className="content">
-                            Adam Nguyen
+                            {this.state.displayName}
                             <div className="sub header details">
                                 <span className="map-icon">
                                     <i className="birthday cake icon"></i>
@@ -52,4 +56,8 @@ class ProfileHeader extends React.Component {
     }
 }
 
-export default ProfileHeader;
+const mapStateToProps = (state) => {
+    return { userProfile: state.profile.userProfile };
+}
+
+export default connect(mapStateToProps)(ProfileHeader);
