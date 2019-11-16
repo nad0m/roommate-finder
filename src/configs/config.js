@@ -1,5 +1,5 @@
 export const FIREBASE_CONFIG = {
-    apiKey: "AIzaSyBRINyOi93Tb2gikKuP0CHxw_GumxmPs6M",
+    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
     authDomain: "roommate-finder-de1ed.firebaseapp.com",
     databaseURL: "https://roommate-finder-de1ed.firebaseio.com",
     projectId: "roommate-finder-de1ed",
