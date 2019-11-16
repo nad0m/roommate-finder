@@ -1,8 +1,8 @@
-import { users } from './collections';
+import { usersCollection } from './collections';
 
-export const addNewUser = (db, profile) => {
+export const registerNewUser = (profile) => {
 
-    db.collection(users).doc(profile.uid).set(profile)
+    usersCollection().doc(profile.uid).set(profile)
     .then(function() {
         console.log("Document successfully written!");
     })
@@ -12,16 +12,14 @@ export const addNewUser = (db, profile) => {
 
 }
 
-export const getUser = async (db, uid, handleResult) => {
+export const userSignedIn = async (userId) => {
+    const docRef = usersCollection().doc(userId);
 
-    const docRef = db.collection(users).doc(uid);
-
-    const result = await docRef.get().then(function(doc) {
+    const userData = await docRef.get().then(function(doc) {
         if (doc.exists) {
             console.log("Document data:", doc.data());
             return doc.data();
         } else {
-            // doc.data() will be undefined in this case
             console.log("No such document!");
             return doc.data();
         }
@@ -29,8 +27,5 @@ export const getUser = async (db, uid, handleResult) => {
         console.log("Error getting document:", error);
     });
 
-    console.log(result);
-
-    handleResult(result ? false : true);
-    return result;
+    return userData;
 }

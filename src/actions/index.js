@@ -6,6 +6,8 @@ import {
     SAVE_AUTH_PROFILE
 } from './types';
 
+import { userSignedIn, registerNewUser } from '../db/firestore';
+
 export const signIn = (userId) => {
     return {
         type: SIGN_IN,
@@ -26,11 +28,20 @@ export const saveFirebaseInstance = (instance) => {
     };
 }
 
-export const saveCurrentUser = (user) => {
-    return {
+export const saveCurrentUser = (user) => async (dispatch) => {
+
+    let userData = await userSignedIn(user.uid);
+
+    // if user data does not exist in db
+    if (!userData) {
+        userData = {...user, dob: null, location: null, gender: null};
+        registerNewUser(userData);
+    }
+
+    dispatch({
         type: SAVE_CURRENT_USER,
-        payload: user
-    };
+        payload: userData
+    });
 }
 
 export const saveAuthProfile = (profile) => {
