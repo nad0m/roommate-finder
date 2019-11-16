@@ -52,8 +52,13 @@ class App extends React.Component {
             return (
                 <React.Fragment>
                     <Route path="/" exact component={LandingPage} />
-                    <Route path="/sign_in" exact component={SignInPage} />
-                    <PrivateRoute authed={this.state.isSignedIn} path="/profile" component={ProfilePage} />
+                    <Route path="/sign_in" render={(props) => <SignInPage {...props} authed={this.state.isSignedIn} />} />
+                    <PrivateRoute 
+                        authed={this.state.isSignedIn} 
+                        newProps={{userProfile: this.props.userProfile}}
+                        path="/profile" 
+                        component={ProfilePage} 
+                    />
                 </React.Fragment>
             );
         }
@@ -75,7 +80,7 @@ class App extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    return { isSignedIn: state.auth.isSignedIn, userId: state.auth.userId, authProfile: state.auth.authProfile };
+    return { isSignedIn: state.auth.isSignedIn, userId: state.auth.userId, authProfile: state.auth.authProfile, userProfile: state.profile.userProfile };
 }
 
 export default connect(mapStateToProps, { signIn, signOut, saveFirebaseInstance, saveAuthProfile, saveCurrentUser })(App);

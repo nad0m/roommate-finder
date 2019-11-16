@@ -3,7 +3,8 @@ import ProfileHeader from '../profile/ProfileHeader';
 
 import '../profile/profile.css';
 
-const ProfilePage = () => {
+const ProfilePage = (props) => {
+
     return (
         <div className="profile-container">
             <h1>
@@ -13,10 +14,8 @@ const ProfilePage = () => {
                 Sharing more information about yourself can help you find more potential roommates.
             </p>
 
-            <ProfileHeader />
+            <ProfileHeader userProfile={props.userProfile}/>
         </div>
-
-
     )
 }
 

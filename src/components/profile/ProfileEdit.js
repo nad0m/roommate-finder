@@ -8,19 +8,43 @@ import { connect } from 'react-redux';
 class ProfileEdit extends React.Component {
 
     state = {
-        name: null,
+        displayName: "",
         dobMonth: null,
         dobDay: null,
         dobYear: null,
         location: null,
-        gender: {
+        gender: null,
+        genderButtons: {
             him: false,
             she: false,
             they: false
         }
     }
 
+    componentDidMount() {
+        const {displayName, dob, location, gender} = this.props.profile;
+
+        this.setState({
+            displayName,
+            dobMonth: 10,
+            dobDay: 10,
+            dobYear: 1990,
+            location,
+            gender,
+            genderButtons: {
+                him: gender === 'Male',
+                she: gender === 'Female',
+                they: gender === 'Non-binary'
+            }
+        });
+    }
+
     onInputChange = (e) => {
+
+        switch(e.target.name) {
+            case 'name-input': 
+                this.setState({displayName: e.target.value});
+        }
         console.log(e.target.value);
     }
 
@@ -28,13 +52,13 @@ class ProfileEdit extends React.Component {
         
         switch(target.name) {
             case 'him-button': 
-                this.setState( { gender: { him: true, she: false, they: false } } );
+                this.setState( { genderButtons: { him: true, she: false, they: false } } );
                 break;
             case 'she-button': 
-                this.setState( { gender: { him: false, she: true, they: false } } );
+                this.setState( { genderButtons: { him: false, she: true, they: false } } );
                 break;
             case 'they-button': 
-                this.setState( { gender: { him: false, she: false, they: true } } );
+                this.setState( { genderButtons: { him: false, she: false, they: true } } );
                 break;
             default:
                 return;
@@ -42,29 +66,17 @@ class ProfileEdit extends React.Component {
     }
 
     render() {
-        /*var docRef = window.db.collection("users").doc("jyqJj1byMz1gUy5jnkg0");
-
-        docRef.get().then(function(doc) {
-            if (doc.exists) {
-                console.log("Document data:", doc.data());
-            } else {
-                // doc.data() will be undefined in this case
-                console.log("No such document!");
-            }
-        }).catch(function(error) {
-            console.log("Error getting document:", error);
-        });*/
-
         return (
             <div className="ui form profile-edit-container" onClick={(e) => e.stopPropagation()}>
+                <h2>Edit Profile</h2>
                 <div className="fields">
-                    <NameField onInputChange={this.onInputChange} />
+                    <NameField onInputChange={this.onInputChange} value={this.state.displayName} />
                     <DobField onInputChange={this.onInputChange} />
                 </div>
 
                 <div className="fields">
                     <LocationField onInputChange={this.onInputChange} />
-                    <GenderField onButtonClick={this.buttonClick} activeGender={this.state.gender} />
+                    <GenderField onButtonClick={this.buttonClick} activeGender={this.state.genderButtons} />
                 </div>
 
                 <div className="button-container">
