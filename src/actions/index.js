@@ -7,6 +7,7 @@ import {
 } from './types';
 
 import { userSignedIn, registerNewUser } from '../db/firestore';
+import { firebaseSignOut } from '../db/auth';
 
 export const signIn = (userId) => {
     return {
@@ -15,10 +16,18 @@ export const signIn = (userId) => {
     };
 }
 
-export const signOut = () => {
-    return {
-        type: SIGN_OUT
-    };
+export const signOut = () => async (dispatch) => {
+    const userStillSignedIn = await firebaseSignOut(); 
+
+    dispatch({
+        type: SIGN_OUT,
+        payload: userStillSignedIn
+    });
+
+    dispatch({
+        type: SAVE_CURRENT_USER,
+        payload: null
+    });
 }
 
 export const saveFirebaseInstance = (instance) => {
@@ -34,7 +43,7 @@ export const saveCurrentUser = (user) => async (dispatch) => {
 
     // if user data does not exist in db
     if (!userData) {
-        userData = {...user, dob: null, location: null, gender: null};
+        userData = {...user, id: user.uid, dob: null, location: null, gender: null};
         registerNewUser(userData);
     }
 
@@ -49,4 +58,8 @@ export const saveAuthProfile = (profile) => {
         type: SAVE_AUTH_PROFILE,
         payload: profile
     };
+}
+
+export const updateUserProfile = (profile) => {
+    
 }

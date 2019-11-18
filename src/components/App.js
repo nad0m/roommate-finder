@@ -33,7 +33,7 @@ class App extends React.Component {
         this.props.saveFirebaseInstance(firebase);
     }
 
-    onAuthChange = (user) => {
+    onAuthChange = async (user) => {
         if (user) {
             const { uid, displayName, email, photoURL, emailVerified } = user;
             const data = { uid, displayName, email, photoURL, emailVerified };
@@ -41,7 +41,7 @@ class App extends React.Component {
             this.props.signIn(data.uid);
             this.props.saveCurrentUser(data);
         } else {
-            this.props.signOut();
+            await this.props.signOut();
         }
 
         this.setState({ isSignedIn: this.props.isSignedIn });
@@ -69,7 +69,7 @@ class App extends React.Component {
             <div className="ui container">
                 <Router history={history}>
                     <div>
-                        <Navbar />
+                        <Navbar isSignedIn={this.state.isSignedIn} signOut={this.props.signOut} />
                         {this.renderRoutes()}
                     </div>
                 </Router>

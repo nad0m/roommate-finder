@@ -2,7 +2,24 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './navbar.css';
 
-const Navbar = () => {
+const Navbar = ({ isSignedIn, signOut }) => {
+
+    const loginText = () => {
+        return isSignedIn ? <i className="sign out alternate icon"></i> : "Login";
+    }
+
+    const loginComponent = () => {
+        return (
+            isSignedIn ? <Link to="/sign_in" onClick={signOut}>
+                            {loginText()}
+                        </Link> :
+                        <Link to="/sign_in">
+                            {loginText()}
+                        </Link>
+
+        )
+
+    }
 
     return (
         <div className="navbar-container ui segment">
@@ -19,9 +36,7 @@ const Navbar = () => {
             </div>
 
             <div className="navbar-login">
-                <Link to="/sign_in">
-                    Login
-                </Link>
+                {loginComponent()}
             </div>
         </div>
     );

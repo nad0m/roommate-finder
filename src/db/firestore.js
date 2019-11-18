@@ -29,3 +29,19 @@ export const userSignedIn = async (userId) => {
 
     return userData;
 }
+
+export const updateProfileHeader = (profile) => {
+    const washingtonRef = usersCollection.doc("DC");
+
+    // Set the "capital" field of the city 'DC'
+    return washingtonRef.update({
+        capital: true
+    })
+    .then(function() {
+        console.log("Document successfully updated!");
+    })
+    .catch(function(error) {
+        // The document probably doesn't exist.
+        console.error("Error updating document: ", error);
+    });
+}

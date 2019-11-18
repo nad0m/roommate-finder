@@ -9,10 +9,10 @@ class ProfileEdit extends React.Component {
 
     state = {
         displayName: "",
-        dobMonth: null,
-        dobDay: null,
-        dobYear: null,
-        location: null,
+        dobMonth: "",
+        dobDay: "",
+        dobYear: "",
+        location: "",
         gender: null,
         genderButtons: {
             him: false,
@@ -26,9 +26,10 @@ class ProfileEdit extends React.Component {
 
         this.setState({
             displayName,
-            dobMonth: 10,
-            dobDay: 10,
-            dobYear: 1990,
+            dob: dob.toDate(),
+            dobMonth: dob.toDate().getUTCMonth(),
+            dobDay: dob.toDate().getUTCDate(),
+            dobYear: dob.toDate().getUTCFullYear(),
             location,
             gender,
             genderButtons: {
@@ -40,12 +41,25 @@ class ProfileEdit extends React.Component {
     }
 
     onInputChange = (e) => {
-
         switch(e.target.name) {
             case 'name-input': 
                 this.setState({displayName: e.target.value});
+                break;
+            case 'location-input': 
+                this.setState({location: e.target.value});
+                break;
+            case 'month-input':
+                this.setState({dobMonth: e.target.value});
+                break;
+            case 'day-input':
+                this.setState({dobDay: e.target.value});
+                break;
+            case 'year-input':
+                this.setState({dobYear: e.target.value});
+                break;
+            default:
+                return;
         }
-        console.log(e.target.value);
     }
 
     buttonClick = ({target}) => {
@@ -71,11 +85,11 @@ class ProfileEdit extends React.Component {
                 <h2>Edit Profile</h2>
                 <div className="fields">
                     <NameField onInputChange={this.onInputChange} value={this.state.displayName} />
-                    <DobField onInputChange={this.onInputChange} />
+                    <DobField onInputChange={this.onInputChange} value={this.state.dob} />
                 </div>
 
                 <div className="fields">
-                    <LocationField onInputChange={this.onInputChange} />
+                    <LocationField onInputChange={this.onInputChange} value={this.state.location} />
                     <GenderField onButtonClick={this.buttonClick} activeGender={this.state.genderButtons} />
                 </div>
 
@@ -85,7 +99,7 @@ class ProfileEdit extends React.Component {
                     </div>
                     
                     <div className="button-save">
-                        <button className="ui button primary">Save</button>
+                        <button className="ui button primary" onClick={(e) => {console.log(this.state)}}>Save</button>
                     </div>
                 </div>
             </div>

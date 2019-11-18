@@ -1,6 +1,7 @@
 import React from 'react';
 import ProfileEditModal from '../../modals/ProfileEditModal';
 import ProfileEdit from './ProfileEdit';
+import { dateToString } from '../../util/date-util';
 
 class ProfileHeader extends React.Component { 
     
@@ -27,7 +28,7 @@ class ProfileHeader extends React.Component {
 
         switch (type) {
             case 'dob': 
-                return this.getDetail("birthday cake icon", this.props.userProfile.dob);
+                return this.getDetail("birthday cake icon", dateToString(this.props.userProfile.dob.toDate()));
             case 'location':
                 return this.getDetail("map marker alternate icon", this.props.userProfile.location);
             case 'gender':
