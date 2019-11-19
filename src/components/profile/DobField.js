@@ -29,7 +29,7 @@ class DobField extends React.Component {
                             placeholder="MM" 
                             maxLength="2" 
                             defaultValue={this.props.value ? (this.props.value.getUTCMonth()+1).toString().padStart(2, '0') : ""}
-                            onChange={(e) => {
+                            onKeyUp={(e) => {
                                 this.onKeyUp(e, 2);
                                 this.props.onInputChange(e);
                             }}
@@ -43,13 +43,13 @@ class DobField extends React.Component {
                             placeholder="DD" 
                             maxLength="2" 
                             defaultValue={this.props.value ? this.props.value.getUTCDate().toString().padStart(2, '0') : ""}
-                            onChange={(e) => {
+                            onKeyUp={(e) => {
                                 this.onKeyUp(e, 2);
                                 this.props.onInputChange(e);
                             }}
                         />
                     </div>
-                    <div className="field form-control input-lg js-date--west">
+                    <div className="field">
                         <input 
                             ref={this.yearInput}
                             name="year-input"
@@ -57,7 +57,7 @@ class DobField extends React.Component {
                             placeholder="YYYY" 
                             maxLength="4" 
                             defaultValue={this.props.value ? this.props.value.getUTCFullYear().toString().padStart(4, '0') : ""}
-                            onChange={(e) => {
+                            onKeyUp={(e) => {
                                 this.onKeyUp(e, 2);
                                 this.props.onInputChange(e);
                             }}

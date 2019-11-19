@@ -4,6 +4,8 @@ import DobField from './DobField';
 import LocationField from './LocationField';
 import GenderField from './GenderField';
 import { connect } from 'react-redux';
+import { updateUserProfile } from '../../actions'
+import { validProfile, parseProfile } from '../../util/validation';
 
 class ProfileEdit extends React.Component {
 
@@ -26,18 +28,22 @@ class ProfileEdit extends React.Component {
 
         this.setState({
             displayName,
-            dob: dob.toDate(),
-            dobMonth: dob.toDate().getUTCMonth(),
-            dobDay: dob.toDate().getUTCDate(),
-            dobYear: dob.toDate().getUTCFullYear(),
-            location,
+            dob: dob ? dob.toDate() : "",
+            dobMonth: dob ? dob.toDate().getUTCMonth() : "",
+            dobDay: dob ? dob.toDate().getUTCDate() : "",
+            dobYear: dob ? dob.toDate().getUTCFullYear() : "",
+            location: location ? location : "",
             gender,
             genderButtons: {
                 him: gender === 'Male',
                 she: gender === 'Female',
-                they: gender === 'Non-binary'
+                they: gender === 'Neutral'
             }
         });
+    }
+
+    onLocationSelect = (target) => {
+        this.setState({location: target.value});
     }
 
     onInputChange = (e) => {
@@ -66,13 +72,13 @@ class ProfileEdit extends React.Component {
         
         switch(target.name) {
             case 'him-button': 
-                this.setState( { genderButtons: { him: true, she: false, they: false } } );
+                this.setState( { genderButtons: { him: true, she: false, they: false }, gender: 'Male' } );
                 break;
             case 'she-button': 
-                this.setState( { genderButtons: { him: false, she: true, they: false } } );
+                this.setState( { genderButtons: { him: false, she: true, they: false }, gender: 'Female' } );
                 break;
             case 'they-button': 
-                this.setState( { genderButtons: { him: false, she: false, they: true } } );
+                this.setState( { genderButtons: { him: false, she: false, they: true }, gender: 'Neutral' } );
                 break;
             default:
                 return;
@@ -82,24 +88,37 @@ class ProfileEdit extends React.Component {
     render() {
         return (
             <div className="ui form profile-edit-container" onClick={(e) => e.stopPropagation()}>
-                <h2>Edit Profile</h2>
+                <h2>Edit Profile</h2>  
                 <div className="fields">
                     <NameField onInputChange={this.onInputChange} value={this.state.displayName} />
                     <DobField onInputChange={this.onInputChange} value={this.state.dob} />
                 </div>
 
                 <div className="fields">
-                    <LocationField onInputChange={this.onInputChange} value={this.state.location} />
+                    <LocationField onInputChange={this.onInputChange} value={this.state.location} onLocationSelect={this.onLocationSelect} />
                     <GenderField onButtonClick={this.buttonClick} activeGender={this.state.genderButtons} />
                 </div>
 
                 <div className="button-container">
-                    <div className="button-cancel">
+                    <div className="button-cancel" onClick={this.props.hideModal}>
                         <button className="ui button">Cancel</button>
                     </div>
                     
                     <div className="button-save">
-                        <button className="ui button primary" onClick={(e) => {console.log(this.state)}}>Save</button>
+                        <button 
+                            className="ui button primary" 
+                            onClick={(e) => {
+                                const errors = validProfile(this.state);
+                                
+                                if (errors.length > 0) {
+                                    console.log(errors);
+                                } else {
+                                    const updates = parseProfile(this.state);
+                                    this.props.updateUserProfile({...updates, uid: this.props.uid}, this.props.hideModal);
+                                }
+                            }}>
+                                Save
+                        </button>
                     </div>
                 </div>
             </div>
@@ -109,7 +128,8 @@ class ProfileEdit extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    return { userProfile: state.profile.userProfile };
+    return { uid: state.auth.userId };
 }
 
-export default connect(mapStateToProps)(ProfileEdit);
+
+export default connect(mapStateToProps, { updateUserProfile })(ProfileEdit);

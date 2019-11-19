@@ -30,18 +30,17 @@ export const userSignedIn = async (userId) => {
     return userData;
 }
 
-export const updateProfileHeader = (profile) => {
-    const washingtonRef = usersCollection.doc("DC");
+export const updateProfileHeader = async (profile) => {
+    const docRef = usersCollection().doc(profile.uid);
 
-    // Set the "capital" field of the city 'DC'
-    return washingtonRef.update({
-        capital: true
-    })
+    const userData = await docRef.update(profile)
     .then(function() {
         console.log("Document successfully updated!");
+        return profile;
     })
     .catch(function(error) {
-        // The document probably doesn't exist.
         console.error("Error updating document: ", error);
     });
+
+    return userData;
 }

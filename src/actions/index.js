@@ -3,10 +3,11 @@ import {
     SIGN_OUT,
     SAVE_FIREBASE_INSTANCE,
     SAVE_CURRENT_USER,
-    SAVE_AUTH_PROFILE
+    SAVE_AUTH_PROFILE,
+    UPDATE_CURRENT_USER_PROFILE
 } from './types';
 
-import { userSignedIn, registerNewUser } from '../db/firestore';
+import { userSignedIn, registerNewUser, updateProfileHeader } from '../db/firestore';
 import { firebaseSignOut } from '../db/auth';
 
 export const signIn = (userId) => {
@@ -43,7 +44,7 @@ export const saveCurrentUser = (user) => async (dispatch) => {
 
     // if user data does not exist in db
     if (!userData) {
-        userData = {...user, id: user.uid, dob: null, location: null, gender: null};
+        userData = {...user, dob: null, location: null, gender: null};
         registerNewUser(userData);
     }
 
@@ -60,6 +61,15 @@ export const saveAuthProfile = (profile) => {
     };
 }
 
-export const updateUserProfile = (profile) => {
+export const updateUserProfile = (profile, callback) => async (dispatch) => {
+    const userData = await updateProfileHeader(profile);
+
+    dispatch({
+        type: UPDATE_CURRENT_USER_PROFILE,
+        payload: userData
+    });
     
+    if (userData) {
+        callback();
+    }
 }

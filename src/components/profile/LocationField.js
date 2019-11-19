@@ -13,6 +13,7 @@ class LocationField extends React.Component {
             componentRestrictions: {country: "us"}
         };
         this.autocomplete = new window.google.maps.places.Autocomplete(this.locationInput.current, options);
+        window.google.maps.event.addListener(this.autocomplete, 'place_changed', () => this.props.onLocationSelect(this.locationInput.current));
     }
 
     render() {

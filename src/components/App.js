@@ -28,7 +28,7 @@ class App extends React.Component {
         if (!firebase.apps.length) {
             firebase.initializeApp(FIREBASE_CONFIG);
         }
-
+        
         firebase.auth().onAuthStateChanged(this.onAuthChange);
         this.props.saveFirebaseInstance(firebase);
     }
