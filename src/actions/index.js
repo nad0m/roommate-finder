@@ -3,10 +3,12 @@ import {
     SIGN_OUT,
     SAVE_FIREBASE_INSTANCE,
     SAVE_CURRENT_USER,
-    SAVE_AUTH_PROFILE
+    SAVE_AUTH_PROFILE,
+    UPDATE_CURRENT_USER_PROFILE
 } from './types';
 
-import { userSignedIn, registerNewUser } from '../db/firestore';
+import { userSignedIn, registerNewUser, updateProfileHeader } from '../db/firestore';
+import { firebaseSignOut } from '../db/auth';
 
 export const signIn = (userId) => {
     return {
@@ -15,10 +17,18 @@ export const signIn = (userId) => {
     };
 }
 
-export const signOut = () => {
-    return {
-        type: SIGN_OUT
-    };
+export const signOut = () => async (dispatch) => {
+    const userStillSignedIn = await firebaseSignOut(); 
+
+    dispatch({
+        type: SIGN_OUT,
+        payload: userStillSignedIn
+    });
+
+    dispatch({
+        type: SAVE_CURRENT_USER,
+        payload: null
+    });
 }
 
 export const saveFirebaseInstance = (instance) => {
@@ -49,4 +59,17 @@ export const saveAuthProfile = (profile) => {
         type: SAVE_AUTH_PROFILE,
         payload: profile
     };
+}
+
+export const updateUserProfile = (profile, callback) => async (dispatch) => {
+    const userData = await updateProfileHeader(profile);
+
+    dispatch({
+        type: UPDATE_CURRENT_USER_PROFILE,
+        payload: userData
+    });
+    
+    if (userData) {
+        callback();
+    }
 }

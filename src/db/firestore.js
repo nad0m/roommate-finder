@@ -29,3 +29,18 @@ export const userSignedIn = async (userId) => {
 
     return userData;
 }
+
+export const updateProfileHeader = async (profile) => {
+    const docRef = usersCollection().doc(profile.uid);
+
+    const userData = await docRef.update(profile)
+    .then(function() {
+        console.log("Document successfully updated!");
+        return profile;
+    })
+    .catch(function(error) {
+        console.error("Error updating document: ", error);
+    });
+
+    return userData;
+}

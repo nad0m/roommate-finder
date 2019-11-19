@@ -1,6 +1,7 @@
 import React from 'react';
 import SignUp from '../signin/SignUp';
 import Login from '../signin/Login';
+import { Redirect } from 'react-router-dom';
 
 import '../signin/sheet.css';
 import '../signin/auth.css';
@@ -29,6 +30,11 @@ class SignInPage extends React.PureComponent {
     }
 
     render() {
+
+        if (this.props.authed) {
+            return <Redirect to='/profile' />
+        }
+
         return (
             <div>
                 <div className="ui top attached tabular menu">

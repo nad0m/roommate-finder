@@ -28,7 +28,8 @@ class DobField extends React.Component {
                             type="text" 
                             placeholder="MM" 
                             maxLength="2" 
-                            onChange={(e) => {
+                            defaultValue={this.props.value ? (this.props.value.getUTCMonth()+1).toString().padStart(2, '0') : ""}
+                            onKeyUp={(e) => {
                                 this.onKeyUp(e, 2);
                                 this.props.onInputChange(e);
                             }}
@@ -41,7 +42,8 @@ class DobField extends React.Component {
                             type="text" 
                             placeholder="DD" 
                             maxLength="2" 
-                            onChange={(e) => {
+                            defaultValue={this.props.value ? this.props.value.getUTCDate().toString().padStart(2, '0') : ""}
+                            onKeyUp={(e) => {
                                 this.onKeyUp(e, 2);
                                 this.props.onInputChange(e);
                             }}
@@ -54,7 +56,9 @@ class DobField extends React.Component {
                             type="text"                                     
                             placeholder="YYYY" 
                             maxLength="4" 
-                            onChange={(e) => {
+                            defaultValue={this.props.value ? this.props.value.getUTCFullYear().toString().padStart(4, '0') : ""}
+                            onKeyUp={(e) => {
+                                this.onKeyUp(e, 2);
                                 this.props.onInputChange(e);
                             }}
                         />

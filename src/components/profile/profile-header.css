@@ -1,0 +1,86 @@
+.container-header-profile {
+    display: flex;
+    margin: 10% auto;
+    width: 80%;
+    height: auto;
+  }
+  
+  .portrait {
+    display: flex;
+    justify-content: center;
+    margin-right: 10px;
+    width: 20%;
+    height: auto;
+  }
+  
+  .portrait > img {
+    width: 100%;
+    height: auto;
+    border-radius: 50%;
+  }
+  
+  .details-profile {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    justify-content: center;
+  }
+  
+  .detail {
+    margin: 5px;
+  }
+  
+  .header-container-profile {
+    display: flex;
+    margin: 5px;
+  }
+
+  .header > span {
+      color: grey;
+  }
+
+  .detail > span {
+    font-weight: bold;
+  }
+
+  .detail > i {
+      color: #00ba7c;
+  }
+  
+  .edit {
+    display: flex;
+    margin: auto;
+    margin-left: 15%;
+    justify-self: flex-start;
+    align-self: center;
+  }
+
+.field-label {
+    text-align: left;
+}
+
+.dob {
+    display: flex;
+}
+
+.edit-item-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.button-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+.button-save {
+    margin-left: auto;
+}
+
+.profile-edit-container {
+    padding: 20px;
+    width: 800px;
+    background-color: white;
+    border-radius: 5px;
+}

@@ -5,7 +5,7 @@
 
 .profile-edit-container {
     padding: 20px;
-    width: 50%;
+    width: 800px;
     background-color: white;
     border-radius: 5px;
 }
@@ -54,13 +54,15 @@
 
 .details {
     display: flex;
-    flex-direction: row;
-    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+    color: grey;
+    font-size: 15px;
 }
 
-.map-icon {
-    display: inline-flex;
+.detail-icon {
     margin: 0 5px;
+    padding-top: 7px;
     font-size: 5px;
 }
 

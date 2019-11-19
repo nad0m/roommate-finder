@@ -28,12 +28,12 @@ class App extends React.Component {
         if (!firebase.apps.length) {
             firebase.initializeApp(FIREBASE_CONFIG);
         }
-
+        
         firebase.auth().onAuthStateChanged(this.onAuthChange);
         this.props.saveFirebaseInstance(firebase);
     }
 
-    onAuthChange = (user) => {
+    onAuthChange = async (user) => {
         if (user) {
             const { uid, displayName, email, photoURL, emailVerified } = user;
             const data = { uid, displayName, email, photoURL, emailVerified };
@@ -41,7 +41,7 @@ class App extends React.Component {
             this.props.signIn(data.uid);
             this.props.saveCurrentUser(data);
         } else {
-            this.props.signOut();
+            await this.props.signOut();
         }
 
         this.setState({ isSignedIn: this.props.isSignedIn });
@@ -52,8 +52,13 @@ class App extends React.Component {
             return (
                 <React.Fragment>
                     <Route path="/" exact component={LandingPage} />
-                    <Route path="/sign_in" exact component={SignInPage} />
-                    <PrivateRoute authed={this.state.isSignedIn} path="/profile" component={ProfilePage} />
+                    <Route path="/sign_in" render={(props) => <SignInPage {...props} authed={this.state.isSignedIn} />} />
+                    <PrivateRoute 
+                        authed={this.state.isSignedIn} 
+                        newProps={{userProfile: this.props.userProfile}}
+                        path="/profile" 
+                        component={ProfilePage} 
+                    />
                 </React.Fragment>
             );
         }
@@ -64,7 +69,7 @@ class App extends React.Component {
             <div className="ui container">
                 <Router history={history}>
                     <div>
-                        <Navbar />
+                        <Navbar isSignedIn={this.state.isSignedIn} signOut={this.props.signOut} />
                         {this.renderRoutes()}
                     </div>
                 </Router>
@@ -75,7 +80,7 @@ class App extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    return { isSignedIn: state.auth.isSignedIn, userId: state.auth.userId, authProfile: state.auth.authProfile };
+    return { isSignedIn: state.auth.isSignedIn, userId: state.auth.userId, authProfile: state.auth.authProfile, userProfile: state.profile.userProfile };
 }
 
 export default connect(mapStateToProps, { signIn, signOut, saveFirebaseInstance, saveAuthProfile, saveCurrentUser })(App);
