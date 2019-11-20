@@ -1,0 +1,12 @@
+export const ABOUT_YOU = "ABOUT_YOU";
+export const MONTHLY_BUDGET = "MONTHLY_BUDGET";
+export const OCCUPATION = "OCCUPATION";
+export const ATTRIBUTES = "ATTRIBUTES";
+export const YOUR_PREFERENCES = "YOUR_PREFERENCES";
+export const PREFERRED_GENDER = "PREFERRED_GENDER";
+export const HOUSEHOLD_SIZE = "HOUSEHOLD_SIZE";
+export const HOUSING_TYPE = "HOUSING_TYPE";
+export const LOGISTICS = "LOGISTICS";
+export const DURATION = "DURATION";
+export const HOME_SCHEDULE = "HOME_SCHEDULE";
+export const BATHROOM_RATIO = "BATHROOM_RATIO";

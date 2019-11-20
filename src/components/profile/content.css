@@ -19,10 +19,12 @@ h3 {
     display: inline-block;
     background-color: #f1f4f8;
     padding: 10px 20px;
+    border-radius: 5px;
 }
 
-.budget-container {
+.field-container {
     margin-top: 30px;
+    margin-bottom: 40px;
     padding: 0;
 }
 
@@ -30,11 +32,12 @@ h3 {
     color: gray;
 }
 
-.money {
+.block {
     display: inline-block;
     padding: 10px 20px;
     background-color: #f1f4f8;
     font-size: 15px;
+    border-radius: 5px;
 }
 
 .money-input {
@@ -54,9 +57,43 @@ input:focus {
     margin-right: 5px;
 }
 
-.budget-container > hr {
+.field-container > hr {
     border-bottom: 2px solid lightsteelblue;
     display: inline-block;
     padding: 0px 10px;
     margin: 3px 10px;
+}
+
+footer {
+    margin-top: 100px;
+}
+
+footer > .button-item {
+    border: 0px;
+    padding: 5px;
+    width: 150px;
+    height: 35px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+}
+footer > .button-item:hover {
+    background: #e6f0f7;
+    cursor: pointer;
+}
+
+footer > .button-item:focus {
+    outline: 0;
+    box-shadow: 0 0 0 2px #4a90e2;
+}
+
+.save {
+    float: right;
+    color: #4a90e2;
+}
+
+.active {
+    background: #e6f0f7;
+    box-shadow: 0 0 0 2px #4a90e2;
 }

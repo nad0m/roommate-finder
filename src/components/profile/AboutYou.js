@@ -1,15 +1,20 @@
 import React from 'react';
+import Budget from './Budget';
+import Occupation from './Occupation';
+import EditControls from './EditControls';
+import { ABOUT_YOU } from '../profile/types';
 import './content.css';
 
 class AboutYou extends React.Component {
 
     state = {  
         budgetLower: "",
-        budgetUpper: ""
+        budgetUpper: "",
+        occupation: ""
     }
 
     onInputChange = ({ target }) => {
-        
+        console.log(target.value);
         switch (target.name) {
             case 'min':
                 this.setState({budgetLower: target.value});
@@ -22,73 +27,55 @@ class AboutYou extends React.Component {
         } 
     }
 
-    renderFields() {
-        if (this.props.editting) {
-            return (
-                <div className="budget-container">
-                    <div className="input-container">
-                        <span className="dollar">$</span>
-                        <input 
-                            name="min"
-                            className="money-input" 
-                            value={this.state.budgetLower}
-                            placeholder="00,000"
-                            maxLength="5"
-                            onChange={this.onInputChange}
-                        />
-                    </div>
-                    <hr></hr>
-                    <div className="input-container">
-                        <span className="dollar">$</span>
-                        <input 
-                            name="max"
-                            className="money-input" 
-                            value={this.state.budgetUpper}
-                            placeholder="00,000"
-                            maxLength="5"
-                            onChange={this.onInputChange}
-                        />
-                    </div>
-                </div>
-            );
-        }
-
-        return (
-            <div className="budget-container">
-                <span className="money">
-                    <span className="dollar">$</span>
-                    {this.state.budgetLower}
-                </span>
-                <hr></hr>
-                <span className="money">
-                    <span className="dollar">$</span>
-                    {this.state.budgetUpper}
-                </span>
-            </div>
-        );      
+    occupationClick = ({ target }) => {
+        this.setState({ occupation: target.name })
     }
 
     disableButton = () => {
         return this.props.editting ? "circular ui icon button disabled" : "circular ui icon button";
     }
 
+    onEditClick = () => {
+        this.props.onEditClick(ABOUT_YOU);
+    }
+
     componentDidMount() {
-        this.setState({ ...this.props.data.budget });
+        this.setState({ 
+            ...this.props.data.budget,
+            occupation: this.props.data.occupation
+        });
     }
 
     render() {
         return (
-            <div className="content-container">
-                <div className="edit-header">
-                    <h3>About You</h3>
-                    <button className={this.disableButton()} onClick={() => this.props.onEditClick('about-you')}>
-                        <i className="pencil icon"></i>
-                    </button>
+            <React.Fragment>  
+                <div id={ABOUT_YOU} className="content-container">
+                    <div className="edit-header">
+                        <h3>About You</h3>
+                        <button className={this.disableButton()} onClick={this.onEditClick}>
+                            <i className="pencil icon"></i>
+                        </button>
+                    </div>
+                    
+                    <span>Monthly budget</span>
+                    <Budget 
+                        budgetLower={this.state.budgetLower} 
+                        budgetUpper={this.state.budgetUpper}
+                        onInputChange={this.onInputChange}
+                        editting={this.props.editting}
+                    />
+
+                    <span>Occupation</span>
+                    <Occupation 
+                        occupation={this.state.occupation}
+                        onButtonClick={this.occupationClick}
+                        editting={this.props.editting}
+                    />
+
+                    <EditControls editting={this.props.editting} cancel={this.onEditClick} />
                 </div>
-                
-                <span>Monthly budget</span>
-                {this.renderFields()}
-            </div>
+
+            </React.Fragment>
         );
     }
 }

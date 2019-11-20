@@ -31,11 +31,6 @@ ul > ul {
     font-size: 12px;
     background-color: white;
 }
-
-.gray {
-    color: gray;
-}
-
 .button-item:hover {
     background: #e6f0f7;
     cursor: pointer;
@@ -44,6 +39,10 @@ ul > ul {
 .button-item:focus {
     outline: 0;
     box-shadow: 0 0 0 2px #4a90e2;
+}
+
+.gray {
+    color: gray;
 }
 
 hr {
