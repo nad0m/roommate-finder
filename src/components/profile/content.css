@@ -1,0 +1,62 @@
+h3 {
+    padding: 0px;
+    margin: 0px 10px 0px 0px !important;
+}
+
+.edit-header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.content-container {
+    border: 2px solid black;
+    padding: 50px;
+}
+
+.input-container {
+    display: inline-block;
+    background-color: #f1f4f8;
+    padding: 10px 20px;
+}
+
+.budget-container {
+    margin-top: 30px;
+    padding: 0;
+}
+
+.content-container > span {
+    color: gray;
+}
+
+.money {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #f1f4f8;
+    font-size: 15px;
+}
+
+.money-input {
+    padding: 0;
+    background-color: #f1f4f8;
+    font-size: 15px;
+    border: 0px;
+    width: 50px;
+}
+
+input:focus {
+    outline: none;
+}
+
+.dollar {
+    color: #0075fa;
+    margin-right: 5px;
+}
+
+.budget-container > hr {
+    border-bottom: 2px solid lightsteelblue;
+    display: inline-block;
+    padding: 0px 10px;
+    margin: 3px 10px;
+}

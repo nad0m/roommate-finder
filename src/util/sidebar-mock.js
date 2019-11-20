@@ -5,7 +5,7 @@ export default [
         },
         content: [
             {
-                text: 'Budget',
+                text: 'Monthly budget',
                 checked: true
             },
             {
