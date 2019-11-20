@@ -1,7 +1,21 @@
+.black-border {
+
+}
+
+.profile-content-container { 
+  display: flex;
+
+}
+
+.profile-content-items {
+  width: 80%;
+
+}
+
 .container-header-profile {
     display: flex;
     margin: 10% auto;
-    width: 80%;
+    width: 100%;
     height: auto;
   }
   

@@ -1,12 +1,14 @@
 import React from 'react';
-import ProfileHeader2 from '../profile/ProfileHeader';
+import ProfileHeader from '../profile/ProfileHeader';
+import Sidebar from '../profile/Sidebar';
 
 import '../profile/profile-header.css';
 
 const ProfilePage = (props) => {
 
     return (
-        <div className="profile-container">
+        <>
+        <div className="black-border">           
             <h1>
                 Your Profile
             </h1>
@@ -14,8 +16,21 @@ const ProfilePage = (props) => {
                 Sharing more information about yourself can help you find more potential roommates.
             </p>
 
-            <ProfileHeader2 userProfile={props.userProfile} />
+            <ProfileHeader userProfile={props.userProfile} />                      
         </div>
+
+        <div className="profile-content-container">
+            <div className="profile-content-items">
+                <ProfileHeader userProfile={props.userProfile} />  
+                <ProfileHeader userProfile={props.userProfile} />  
+                <ProfileHeader userProfile={props.userProfile} />  
+                <ProfileHeader userProfile={props.userProfile} />  
+                <ProfileHeader userProfile={props.userProfile} />  
+                
+            </div>
+            <Sidebar />
+        </div>
+        </>
     )
 }
 
