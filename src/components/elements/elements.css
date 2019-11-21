@@ -1,0 +1,25 @@
+.button-toggle {
+    margin-bottom: 10px;
+    border: 0px;
+    outline: 0;
+    padding: 10px 20px;
+    width: auto;
+    height: 35px;
+    border-radius: 5px;
+    text-align: left;
+    font-size: 15px;
+    background-color: white;
+}
+.button-toggle:hover {
+    cursor: pointer;
+}
+
+.active {
+    
+    background: #e6f0f7;
+    box-shadow: 0 0 0 2px #4a90e2;
+}
+
+.tag {
+    margin: 0px 10px 10px 10px;
+}

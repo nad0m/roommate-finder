@@ -1,6 +1,7 @@
 import React from 'react';
 import Budget from './Budget';
 import Occupation from './Occupation';
+import Attributes from './Attributes';
 import EditControls from './EditControls';
 import { ABOUT_YOU } from '../profile/types';
 import './content.css';
@@ -8,19 +9,27 @@ import './content.css';
 class AboutYou extends React.Component {
 
     state = {  
-        budgetLower: "",
-        budgetUpper: "",
-        occupation: ""
+        original: this.props.data,
+        budgetLower: this.props.data ? this.props.data.budgetLower : "",
+        budgetUpper: this.props.data ? this.props.data.budgetUpper : "",
+        occupation: this.props.data ? this.props.data.occupation : "",
+        attributes: this.props.data ? this.props.data.attributes : [],
+        saving: false
     }
 
     onInputChange = ({ target }) => {
-        console.log(target.value);
+        const re = /^[0-9\b]+$/;
+
         switch (target.name) {
             case 'min':
-                this.setState({budgetLower: target.value});
+                if (target.value === '' || re.test(target.value)) {
+                    this.setState({budgetLower: target.value});
+                }
                 break;
             case 'max':
-                this.setState({budgetUpper: target.value});
+                if (target.value === '' || re.test(target.value)) {
+                    this.setState({budgetUpper: target.value});
+                }
                 break;
             default:
                 return;
@@ -28,7 +37,15 @@ class AboutYou extends React.Component {
     }
 
     occupationClick = ({ target }) => {
-        this.setState({ occupation: target.name })
+        this.setState({ occupation: target.innerText })
+    }
+
+    attributesClick = ({ target }) => {
+        if (this.state.attributes.indexOf(target.innerText) === -1) {
+            this.setState({ attributes: [...this.state.attributes, target.innerText] });
+        } else {
+            this.setState({ attributes: this.state.attributes.filter(item => item !== target.innerText) });
+        }
     }
 
     disableButton = () => {
@@ -39,10 +56,29 @@ class AboutYou extends React.Component {
         this.props.onEditClick(ABOUT_YOU);
     }
 
+    save = async () => {
+        this.setState({saving: true});
+        const state = (({ budgetLower, budgetUpper, occupation, attributes }) => ({ budgetLower, budgetUpper, occupation, attributes }))(this.state);
+        const payload = {aboutYou: state};
+        const success = await this.props.updateContentProfile(this.props.userId, payload);
+        this.setState({saving: false});
+
+        if (success) {
+            this.setState({original: state});
+            this.onEditClick();
+        } else {
+            this.setState({...this.state, ...this.state.original});
+        }
+    }
+
+    cancel = () => {
+        this.setState({...this.state, ...this.state.original})
+        this.onEditClick();
+    }
+
     componentDidMount() {
         this.setState({ 
-            ...this.props.data.budget,
-            occupation: this.props.data.occupation
+            ...this.props.data
         });
     }
 
@@ -72,7 +108,14 @@ class AboutYou extends React.Component {
                         editting={this.props.editting}
                     />
 
-                    <EditControls editting={this.props.editting} cancel={this.onEditClick} />
+                    <span>Attributes</span>
+                    <Attributes 
+                        attributes={this.state.attributes}
+                        onButtonClick={this.attributesClick}
+                        editting={this.props.editting}
+                    />
+
+                    <EditControls editting={this.props.editting} cancel={this.cancel} save={this.save} />
                 </div>
 
             </React.Fragment>

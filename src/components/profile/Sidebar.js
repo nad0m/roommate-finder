@@ -2,7 +2,7 @@ import React from 'react';
 import SidebarItem from './SidebarItem';
 import '../profile/sidebar.css';
 
-import data from '../../util/sidebar-mock';
+import { sidebarData } from '../../util/static-data';
 
 const Sidebar = () => {
 
@@ -11,9 +11,13 @@ const Sidebar = () => {
             <ul>
                 
                 {
-                    data.map(item => {
+                    sidebarData.map(item => {
                         return (
-                            <SidebarItem title={item.title} content={item.content} key={item.title.text} />
+                            <SidebarItem 
+                                title={item.title} 
+                                content={item.content} 
+                                key={item.title.text} 
+                            />
                         );
                     })
                 }

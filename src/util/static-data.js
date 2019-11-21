@@ -1,4 +1,14 @@
-export default [
+export const occupationData = [
+    "Student", "Employed: Full-time", "Employed: Part-time", "Unemployed"
+];
+
+export const attributesData = [
+    "Tidy & neat", "Cooks frequently", "Has or wants pet(s)", 
+    "Drives a car", "Smokes cigarettes", "Order take-outs frequently",
+    "Can share Amazon Prime", "Can share Netflix", "Plays video games often"
+];
+
+export const sidebarData = [
     {
         title: {
             text: 'About You'

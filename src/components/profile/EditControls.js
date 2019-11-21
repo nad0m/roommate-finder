@@ -1,15 +1,15 @@
 import React from 'react';
 
-const EditControls = ( { editting, cancel, saveClick }) => {
+const EditControls = ( { editting, cancel, save, saving }) => {
 
     if (editting) {
         return (
             <footer>
-                <button className="button-item" onClick={cancel}>
+                <button className={disableCancel(saving)} onClick={cancel}>
                     Cancel
                 </button>
 
-                <button className="button-item save">
+                <button className="button-item save" onClick={save}>
                     Save changes
                 </button>
             </footer>
@@ -17,6 +17,10 @@ const EditControls = ( { editting, cancel, saveClick }) => {
     }
 
     return null;
+}
+
+const disableCancel = (saving) => {
+    return saving ? "button-item ui button disabled" : "button-item";
 }
 
 export default EditControls;

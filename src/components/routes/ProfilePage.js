@@ -2,6 +2,8 @@ import React from 'react';
 import ProfileHeader from '../profile/ProfileHeader';
 import AboutYou from '../profile/AboutYou';
 import Sidebar from '../profile/Sidebar';
+import { connect } from 'react-redux';
+import { updateContentProfile } from '../../actions';
 import { ABOUT_YOU } from '../profile/types';
 
 import '../profile/profile-header.css';
@@ -9,6 +11,7 @@ import '../profile/profile-header.css';
 class ProfilePage extends React.Component {
 
     state = {
+        ...this.props.userProfileContent,
         edittingAboutYou: false
     }
 
@@ -30,6 +33,7 @@ class ProfilePage extends React.Component {
     }
 
     render() {
+        console.log(this.props.userProfileContent);
             return (
                 <>
                 <div className="black-border">           
@@ -46,14 +50,12 @@ class ProfilePage extends React.Component {
                 <div className="profile-content-container">
                     <div className="profile-content-items">
                         <AboutYou 
-                            data={{budget: {budgetLower: 2000,budgetUpper: 3000}, occupation: "Employed"}} 
+                            data={this.state.aboutYou} 
                             editting={this.state.edittingAboutYou} 
                             onEditClick={this.edit}
+                            updateContentProfile={this.props.updateContentProfile}
+                            userId={this.props.userId}
                         /> 
-                        <ProfileHeader userProfile={this.props.userProfile} />  
-                        <ProfileHeader userProfile={this.props.userProfile} />  
-                        <ProfileHeader userProfile={this.props.userProfile} />  
-                        <ProfileHeader userProfile={this.props.userProfile} />  
                         
                     </div>
                     <Sidebar />
@@ -64,4 +66,11 @@ class ProfilePage extends React.Component {
     
 }
 
-export default ProfilePage;
+const mapStateToProps = (state) => {
+    return {
+        userId: state.auth.userId,
+        userProfileContent: state.profile.userProfileContent
+    }
+}
+
+export default connect(mapStateToProps, { updateContentProfile })(ProfilePage);

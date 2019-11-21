@@ -8,7 +8,14 @@ import Navbar from './navbar/Navbar';
 import LandingPage from './routes/LandingPage';
 import SignInPage from './routes/SignInPage';
 import ProfilePage from './routes/ProfilePage';
-import { signIn, signOut, saveFirebaseInstance, saveAuthProfile, saveCurrentUser } from '../actions';
+import { 
+    signIn, 
+    signOut, 
+    saveFirebaseInstance, 
+    saveAuthProfile, 
+    saveCurrentUser, 
+    saveCurrentProfile,
+ } from '../actions';
 
 import firebase from 'firebase/app';
 import 'firebase/auth';
@@ -37,9 +44,10 @@ class App extends React.Component {
         if (user) {
             const { uid, displayName, email, photoURL, emailVerified } = user;
             const data = { uid, displayName, email, photoURL, emailVerified };
-            this.props.saveAuthProfile(data);
+            await this.props.saveAuthProfile(data);
             this.props.signIn(data.uid);
-            this.props.saveCurrentUser(data);
+            await this.props.saveCurrentUser(data);
+            await this.props.saveCurrentProfile(data);
         } else {
             await this.props.signOut();
         }
@@ -83,5 +91,5 @@ const mapStateToProps = (state) => {
     return { isSignedIn: state.auth.isSignedIn, userId: state.auth.userId, authProfile: state.auth.authProfile, userProfile: state.profile.userProfile };
 }
 
-export default connect(mapStateToProps, { signIn, signOut, saveFirebaseInstance, saveAuthProfile, saveCurrentUser })(App);
+export default connect(mapStateToProps, { signIn, signOut, saveFirebaseInstance, saveAuthProfile, saveCurrentUser, saveCurrentProfile })(App);
 

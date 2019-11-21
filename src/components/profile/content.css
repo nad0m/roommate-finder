@@ -11,7 +11,6 @@ h3 {
 }
 
 .content-container {
-    border: 2px solid black;
     padding: 50px;
 }
 
@@ -23,9 +22,16 @@ h3 {
 }
 
 .field-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
     margin-top: 30px;
     margin-bottom: 40px;
     padding: 0;
+}
+
+.space-evenly {
+    justify-content: space-evenly;
 }
 
 .content-container > span {
@@ -61,7 +67,7 @@ input:focus {
     border-bottom: 2px solid lightsteelblue;
     display: inline-block;
     padding: 0px 10px;
-    margin: 3px 10px;
+    margin: 0px 10px;
 }
 
 footer {
