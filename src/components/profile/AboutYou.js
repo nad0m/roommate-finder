@@ -10,10 +10,10 @@ class AboutYou extends React.Component {
 
     state = {  
         original: this.props.data,
-        budgetLower: this.props.data ? this.props.data.budgetLower : "",
-        budgetUpper: this.props.data ? this.props.data.budgetUpper : "",
-        occupation: this.props.data ? this.props.data.occupation : "",
-        attributes: this.props.data ? this.props.data.attributes : [],
+        budgetLower: this.props.data.budgetLower ? this.props.data.budgetLower : "",
+        budgetUpper: this.props.data.budgetUpper ? this.props.data.budgetUpper : "",
+        occupation: this.props.data.occupation ? this.props.data.occupation : "",
+        attributes: this.props.data.attributes ? this.props.data.attributes : [],
         saving: false
     }
 

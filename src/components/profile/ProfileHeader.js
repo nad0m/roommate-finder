@@ -56,7 +56,7 @@ class ProfileHeader extends React.Component {
     }
 
     parseLocation(location) {
-        if (location.length === 0)
+        if (!location)
             return "";
         
         return (

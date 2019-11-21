@@ -10,20 +10,20 @@ import { validProfile, parseProfile } from '../../util/validation';
 class ProfileEdit extends React.Component {
 
     state = {
-        displayName: "",
-        dobMonth: "",
-        dobDay: "",
-        dobYear: "",
-        location: "",
-        gender: null,
+        displayName: this.props.profile.displayName ? this.props.profile.displayName : "",
+        dobMonth: this.props.profile.dob ? this.props.profile.dob.toDate().getUTCMonth() : "",
+        dobDay: this.props.profile.dob ? this.props.profile.dob.toDate().getUTCDate() : "",
+        dobYear: this.props.profile.dob ? this.props.profile.dob.toDate().getUTCFullYear() : "",
+        location: this.props.profile.location ? this.props.profile.location : "",
+        gender: this.props.profile.gender,
         genderButtons: {
-            him: false,
-            she: false,
-            they: false
+            him: this.props.profile.gender === 'Male',
+            she: this.props.profile.gender === 'Female',
+            they: this.props.profile.gender === 'Neutral'
         }
     }
 
-    componentDidMount() {
+    /*componentDidMount() {
         const {displayName, dob, location, gender} = this.props.profile;
 
         this.setState({
@@ -40,7 +40,7 @@ class ProfileEdit extends React.Component {
                 they: gender === 'Neutral'
             }
         });
-    }
+    }*/
 
     onLocationSelect = (target) => {
         this.setState({location: target.value});

@@ -52,6 +52,10 @@ const Budget = ({ budgetLower, budgetUpper, onInputChange, editting }) => {
 }
 
 const formatInt = (val) => {
+    if (!val) {
+        return "";
+    }
+
     if (val.length < 4) {
         return val.replace(',', "");
     }

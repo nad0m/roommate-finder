@@ -33,7 +33,6 @@ class ProfilePage extends React.Component {
     }
 
     render() {
-        console.log(this.props.userProfileContent);
             return (
                 <>
                 <div className="black-border">           
@@ -69,7 +68,6 @@ class ProfilePage extends React.Component {
 const mapStateToProps = (state) => {
     return {
         userId: state.auth.userId,
-        userProfileContent: state.profile.userProfileContent
     }
 }
 
