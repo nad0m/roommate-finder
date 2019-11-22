@@ -103,3 +103,24 @@ footer > .button-item:focus {
     background: #e6f0f7;
     box-shadow: 0 0 0 2px #4a90e2;
 }
+
+.pac-container {
+    margin-top: 10px;
+    background-color: #e6f0f7;
+    border-radius: 5px;
+    font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+    
+}
+
+.pac-item {
+    border: 0px;
+    font-size: 15px;
+}
+
+.pac-item-query {
+    font-size: 15px;
+}
+
+.pac-icon {
+    color: #4a90e2;
+}

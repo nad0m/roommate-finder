@@ -1,6 +1,7 @@
 import React from 'react';
 import ProfileHeader from '../profile/ProfileHeader';
 import AboutYou from '../profile/AboutYou';
+import YourPreferences from '../profile/YourPreferences';
 import Sidebar from '../profile/Sidebar';
 import ProfileEditModal from '../../modals/ProfileEditModal';
 import ProfileEdit from '../profile/ProfileEdit';
@@ -10,6 +11,8 @@ import { updateUserProfile, updateContentProfile } from '../../actions';
 import { ABOUT_YOU } from '../profile/types';
 
 import '../profile/profile-header.css';
+import '../profile/content.css';
+
 
 class ProfilePage extends React.Component {
 
@@ -18,6 +21,20 @@ class ProfilePage extends React.Component {
         ...this.props.mainProfile,
         edittingAboutYou: false,
         editProfile: false
+    }
+
+    constructor(props) {
+        super(props);
+        this.locationRef = React.createRef();
+    }
+
+    componentDidMount() {
+        const options = {
+            types: ['(cities)'],
+            componentRestrictions: {country: "us"}
+        };
+        this.autocomplete = new window.google.maps.places.Autocomplete(this.locationRef.current, options);
+        window.google.maps.event.addListener(this.autocomplete, 'place_changed', () => console.log("Selected"));
     }
 
     showModal = () => {
@@ -200,6 +217,20 @@ class ProfilePage extends React.Component {
                     <div className="profile-content-items">
                         <AboutYou 
                             data={this.state.userProfileContent.aboutYou} 
+                            onInputChange={this.onInputChange}
+                            editting={this.state.edittingAboutYou} 
+                            onEditClick={this.onEditClick}
+                            onOccupationClick={this.onOccupationClick}
+                            onAttributesClick={this.onAttributesClick}
+                            updateContentProfile={this.props.updateContentProfile}
+                            userId={this.state.userId}
+                            save={this.save}
+                            cancel={this.cancel}
+                        /> 
+
+                        <YourPreferences 
+                            data={this.state.userProfileContent.aboutYou}
+                            locationRef={this.locationRef} 
                             onInputChange={this.onInputChange}
                             editting={this.state.edittingAboutYou} 
                             onEditClick={this.onEditClick}

@@ -3,8 +3,8 @@ import Budget from './Budget';
 import Occupation from './Occupation';
 import Attributes from './Attributes';
 import EditControls from './EditControls';
+import ContentHeader from './ContentHeader';
 import { ABOUT_YOU } from '../profile/types';
-import './content.css';
 
 class AboutYou extends React.Component {
 
@@ -14,14 +14,12 @@ class AboutYou extends React.Component {
 
     render() {
         return (
-            <React.Fragment>  
                 <div id={ABOUT_YOU} className="content-container">
-                    <div className="edit-header">
-                        <h3>About You</h3>
-                        <button className={this.disableButton()} onClick={() => this.props.onEditClick(ABOUT_YOU)}>
-                            <i className="pencil icon"></i>
-                        </button>
-                    </div>
+                    <ContentHeader 
+                        title="About You" 
+                        disabledStyle={this.disableButton} 
+                        onEditClick={() => this.props.onEditClick(ABOUT_YOU)} 
+                    />
                     
                     <span>Monthly budget</span>
                     <Budget 
@@ -47,8 +45,6 @@ class AboutYou extends React.Component {
 
                     <EditControls editting={this.props.editting} cancel={this.props.cancel} save={this.props.save} type={ABOUT_YOU}/>
                 </div>
-
-            </React.Fragment>
         );
     }
 }

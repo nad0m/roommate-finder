@@ -15,7 +15,6 @@
 }
 
 .active {
-    
     background: #e6f0f7;
     box-shadow: 0 0 0 2px #4a90e2;
 }
@@ -23,3 +22,40 @@
 .tag {
     margin: 0px 10px 10px 10px;
 }
+
+.input-custom-container {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #e6f0f7;
+    border-radius: 5px;
+}
+
+.small {
+    width: 150px;
+}
+
+.large {
+    width: 70%;
+}
+
+.center {
+    text-align: center;
+}
+
+.input-custom {
+    background-color: #e6f0f7;
+    font-size: 15px;
+    border: 0px;
+    width: 100%;
+}
+
+.input-custom:focus {
+    outline: none;
+  }
+
+.prefix {
+    margin: 0 5px;
+    color: #4a90e2;
+}
+
