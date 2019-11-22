@@ -12,7 +12,7 @@ const Budget = ({ budgetLower, budgetUpper, onInputChange, editting }) => {
                             name="min"
                             type="text"
                             className="money-input" 
-                            value={budgetLower}
+                            value={budgetLower ? budgetLower : ""}
                             placeholder="00,000"
                             maxLength="5"
                             onChange={onInputChange}
@@ -25,7 +25,7 @@ const Budget = ({ budgetLower, budgetUpper, onInputChange, editting }) => {
                             name="max"
                             type="text"
                             className="money-input" 
-                            value={budgetUpper}
+                            value={budgetUpper ? budgetUpper : ""}
                             placeholder="00,000"
                             maxLength="5"
                             onChange={onInputChange}

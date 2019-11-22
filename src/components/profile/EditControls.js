@@ -1,11 +1,11 @@
 import React from 'react';
 
-const EditControls = ( { editting, cancel, save, saving }) => {
+const EditControls = ( { editting, cancel, save, saving, type }) => {
 
     if (editting) {
         return (
             <footer>
-                <button className={disableCancel(saving)} onClick={cancel}>
+                <button className={disableCancel(saving)} onClick={() => cancel(type)}>
                     Cancel
                 </button>
 

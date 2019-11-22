@@ -1,42 +1,20 @@
 import React from 'react';
-import ProfileEditModal from '../../modals/ProfileEditModal';
-import ProfileEdit from './ProfileEdit';
 import { dateToString } from '../../util/date-util';
 
 class ProfileHeader extends React.Component { 
 
-    state = { editProfile: false };
-
-    showModal = () => {
-        this.setState({ editProfile: true });
-    }
-
-    hideModal = () => {
-        this.setState({ editProfile: false });
-    }
-
-    renderModal = () => {
-        if (this.state.editProfile) {
-            return (
-                <ProfileEditModal onDismiss={this.hideModal}>
-                    <ProfileEdit profile={this.props.userProfile} hideModal={this.hideModal} />
-                </ProfileEditModal>
-            );
-        }
-    }
-
     renderData(type) {
-        if (!this.props.userProfile) {
+        if (!this.props.data) {
             return;
         }
 
         switch (type) {
             case 'dob': 
-                return this.parseDOB(dateToString(this.props.userProfile.dob));
+                return this.parseDOB(dateToString(this.props.data.dob));
             case 'location':
-                return this.parseLocation(this.props.userProfile.location);
+                return this.parseLocation(this.props.data.location);
             case 'gender':
-                return this.parseGender(this.props.userProfile.gender);
+                return this.parseGender(this.props.data.gender);
             default:
                 return;                
         }
@@ -63,7 +41,7 @@ class ProfileHeader extends React.Component {
             <React.Fragment>
                 <i className="map marker alternate icon"></i>
                 Lives in
-                <span> {this.props.userProfile.location}</span>
+                <span> {this.props.data.location}</span>
             </React.Fragment>
         );
     }
@@ -76,7 +54,7 @@ class ProfileHeader extends React.Component {
             <React.Fragment>
                 <i className="birthday cake icon"></i>
                 Born on
-                <span> {dateToString(this.props.userProfile.dob)}</span>
+                <span> {dateToString(this.props.data.dob)}</span>
             </React.Fragment>
         );
     }
@@ -99,21 +77,21 @@ class ProfileHeader extends React.Component {
         return (
             <div className="container-header-profile">
                 <div className="portrait">
-                <img src={this.props.userProfile ? this.props.userProfile.photoURL : "https://dvokhk8ohqhd8.cloudfront.net/assets/avatars/candidates/butch_cut-8ce1ba744d7a8255518bdda864804fa90ec4dafe0169af4f4ecb2f87d6221d69.svg"} alt="blah" />
+                <img src={this.props.data ? this.props.data.photoURL : "https://dvokhk8ohqhd8.cloudfront.net/assets/avatars/candidates/butch_cut-8ce1ba744d7a8255518bdda864804fa90ec4dafe0169af4f4ecb2f87d6221d69.svg"} alt="blah" />
                     
                 </div>
                 <div className="details-profile">
                     <div className="header-container-profile">
                         <div className="header">
                             <h2>
-                                {this.props.userProfile ? this.props.userProfile.displayName : null}
+                                {this.props.data ? this.props.data.displayName : null}
                             </h2>
                             <span>
                                 {this.renderData('gender')}
                             </span>
                         </div>      
                         <div className="edit">
-                            <button className="circular ui icon button" onClick={this.showModal}>
+                            <button className="circular ui icon button" onClick={this.props.showModal}>
                                 <i className="pencil icon"></i>
                             </button>
                         </div>
@@ -125,7 +103,6 @@ class ProfileHeader extends React.Component {
                         {this.renderData('location')}
                     </div>
                 </div>
-                {this.renderModal()}
             </div>
         );
     }

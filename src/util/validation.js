@@ -26,6 +26,8 @@ export const validProfile = ({displayName, dobDay, dobMonth, dobYear}) => {
 }
 
 export const parseProfile = ({displayName, dobDay, dobMonth, dobYear, location, gender}) => {
+
+    dobMonth = parseInt(dobMonth) + 1;
     
     const dob = Date.parse(`${dobYear}-${dobMonth}-${dobDay}`);
     const timestamp = store.getState().db.firebase.firestore.Timestamp.fromMillis(dob);
@@ -36,6 +38,14 @@ export const parseProfile = ({displayName, dobDay, dobMonth, dobYear, location, 
         location,
         gender     
     };
+}
+
+export const parseTimestamp = (dob) => {  
+    return {
+        dobMonth: dob ? dob.toDate().getUTCMonth() : "",
+        dobDay: dob ? dob.toDate().getUTCDate() : "",
+        dobYear: dob ? dob.toDate().getUTCFullYear() : ""
+    }
 }
 
 export const setInputFilter = (textbox, inputFilter) => {

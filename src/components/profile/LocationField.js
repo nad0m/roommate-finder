@@ -26,7 +26,7 @@ class LocationField extends React.Component {
                     name="location-input"
                     type="text" 
                     placeholder="City & State" 
-                    value={this.props.value}
+                    value={this.props.value ? this.props.value : ""}
                     onChange={this.props.onInputChange} 
                 />
             </div>

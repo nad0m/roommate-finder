@@ -41,6 +41,7 @@ class App extends React.Component {
     }
 
     onAuthChange = async (user) => {
+        console.log(user);
         if (user) {
             const { uid, displayName, email, photoURL, emailVerified } = user;
             const data = { uid, displayName, email, photoURL, emailVerified };
@@ -63,7 +64,6 @@ class App extends React.Component {
                     <Route path="/sign_in" render={(props) => <SignInPage {...props} authed={this.state.isSignedIn} />} />
                     <PrivateRoute 
                         authed={this.state.isSignedIn} 
-                        newProps={{userProfile: this.props.userProfile, userProfileContent: this.props.userProfileContent}}
                         path="/profile" 
                         component={ProfilePage} 
                     />
@@ -90,10 +90,7 @@ class App extends React.Component {
 const mapStateToProps = (state) => {
     return { 
         isSignedIn: state.auth.isSignedIn, 
-        userId: state.auth.userId, 
-        authProfile: state.auth.authProfile, 
-        userProfile: state.profile.userProfile, 
-        userProfileContent: state.profile.userProfileContent};
+    };
 }
 
 export default connect(mapStateToProps, { signIn, signOut, saveFirebaseInstance, saveAuthProfile, saveCurrentUser, saveCurrentProfile })(App);
