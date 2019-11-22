@@ -8,7 +8,7 @@ import ProfileEdit from '../profile/ProfileEdit';
 import { validProfile, parseProfile, parseTimestamp } from '../../util/validation';
 import { connect } from 'react-redux';
 import { updateUserProfile, updateContentProfile } from '../../actions';
-import { ABOUT_YOU } from '../profile/types';
+import { ABOUT_YOU, YOUR_PREFERENCES } from '../profile/types';
 
 import '../profile/profile-header.css';
 import '../profile/content.css';
@@ -19,7 +19,9 @@ class ProfilePage extends React.Component {
     state = {
         userId: this.props.userId,
         ...this.props.mainProfile,
+        inEditMode: false,
         edittingAboutYou: false,
+        edittingYourPreferences: false,
         editProfile: false
     }
 
@@ -56,15 +58,24 @@ class ProfilePage extends React.Component {
     }
 
     cancel = () => {
-        this.setState({ userProfileContent: this.props.mainProfile.userProfileContent, edittingAboutYou: false })
+        this.setState({ 
+            userProfileContent: this.props.mainProfile.userProfileContent, 
+            edittingAboutYou: false,
+            edittingYourPreferences: false, 
+            inEditMode: false 
+        })
     }
 
     onEditClick = (form) => {
         switch (form) {
             case ABOUT_YOU:
                 this.scrollTo(form);
-                this.setState({edittingAboutYou: true});
+                this.setState({edittingAboutYou: true, inEditMode: true});
                 break;
+            case YOUR_PREFERENCES:
+                    this.scrollTo(form);
+                    this.setState({edittingYourPreferences: true, inEditMode: true});
+                    break;
             default:
                 break;
         }
@@ -219,6 +230,7 @@ class ProfilePage extends React.Component {
                             data={this.state.userProfileContent.aboutYou} 
                             onInputChange={this.onInputChange}
                             editting={this.state.edittingAboutYou} 
+                            inEditMode={this.state.inEditMode}
                             onEditClick={this.onEditClick}
                             onOccupationClick={this.onOccupationClick}
                             onAttributesClick={this.onAttributesClick}
@@ -232,7 +244,8 @@ class ProfilePage extends React.Component {
                             data={this.state.userProfileContent.aboutYou}
                             locationRef={this.locationRef} 
                             onInputChange={this.onInputChange}
-                            editting={this.state.edittingAboutYou} 
+                            editting={this.state.edittingYourPreferences} 
+                            inEditMode={this.state.inEditMode}
                             onEditClick={this.onEditClick}
                             onOccupationClick={this.onOccupationClick}
                             onAttributesClick={this.onAttributesClick}

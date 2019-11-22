@@ -12,12 +12,16 @@ class AboutYou extends React.Component {
         return this.props.editting ? "circular ui icon button disabled" : "circular ui icon button";
     }
 
+    shouldUnfocus =() => {
+        return !this.props.editting && this.props.inEditMode ? "content-container unfocused" : "content-container";
+    }
+
     render() {
         return (
-                <div id={ABOUT_YOU} className="content-container">
+                <div id={ABOUT_YOU} className={this.shouldUnfocus()}>
                     <ContentHeader 
                         title="About You" 
-                        disabledStyle={this.disableButton} 
+                        disabledStyle={this.disableButton()} 
                         onEditClick={() => this.props.onEditClick(ABOUT_YOU)} 
                     />
                     

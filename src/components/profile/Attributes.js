@@ -15,7 +15,11 @@ const Attributes = ({ attributes, onButtonClick, editting }) => {
 
     return (
         <div className="field-container">
-            {attributes.map(attribute => <Tag key={attribute} text={attribute} />)}
+            {attributes.map(attribute => <Tag 
+                                            key={attribute} 
+                                            text={attribute} 
+                                            margin="tag"
+                                        />)}
         </div>
     );
 }

@@ -27,8 +27,17 @@
     display: flex;
     align-items: center;
     padding: 10px;
-    background-color: #e6f0f7;
+    background-color: #f1f4f8;
     border-radius: 5px;
+}
+
+.tag-custom-container {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #f1f4f8;
+    border-radius: 5px;
+    font-size: 15px;
 }
 
 .small {
@@ -40,11 +49,21 @@
 }
 
 .center {
+    margin: auto;
+    justify-self: center;
     text-align: center;
 }
 
+.left {
+    text-align: left;
+}
+
+.right {
+    text-align: right;
+}
+
 .input-custom {
-    background-color: #e6f0f7;
+    background-color: #f1f4f8;
     font-size: 15px;
     border: 0px;
     width: 100%;

@@ -3,17 +3,21 @@ import PreferredLocation from './PreferredLocation';
 import ContentHeader from './ContentHeader';
 import { YOUR_PREFERENCES } from '../profile/types';
 
-const YourPreferences = ({ disableButton, onEditClick, editting, locationRef }) => {
+const YourPreferences = ({ onEditClick, editting, locationRef, inEditMode }) => {
 
-    disableButton = () => {
+    const disableButton = () => {
         return editting ? "circular ui icon button disabled" : "circular ui icon button";
     }
 
+    const shouldUnfocus = () => {
+        return !editting && inEditMode ? "content-container unfocused" : "content-container";
+    }
+
     return (
-        <div id={YOUR_PREFERENCES} className="content-container">
+        <div id={YOUR_PREFERENCES} className={shouldUnfocus()}>
             <ContentHeader 
                 title="Your Preferences" 
-                disabledStyle={disableButton} 
+                disabledStyle={disableButton()} 
                 onEditClick={() => onEditClick(YOUR_PREFERENCES)} 
             />
                     
