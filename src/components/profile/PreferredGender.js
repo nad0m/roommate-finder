@@ -1,9 +1,9 @@
 import React from 'react';
 import ButtonToggle from '../elements/ButtonToggle';
 import Tag from '../elements/Tag';
-import { occupationData } from '../../util/static-data';
+import { prefGenderData } from '../../util/static-data';
 
-const Occupation = ({ occupation, onButtonClick, editting }) => {
+const PreferredGender = ({ occupation, onButtonClick, editting }) => {
 
     if (editting) {
         return (
@@ -15,13 +15,13 @@ const Occupation = ({ occupation, onButtonClick, editting }) => {
 
     return (
         <div className="field-container">
-            <Tag text={occupation} />
+            <Tag text={occupation} margin="tag"/>
         </div>
     );
 }
 
 const renderButtons = (occupation, onButtonClick) => {
-    return occupationData.map(button => <ButtonToggle 
+    return prefGenderData.map(button => <ButtonToggle 
                                     key={button} 
                                     text={button} 
                                     active={button === occupation} 

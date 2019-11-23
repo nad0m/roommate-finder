@@ -30,15 +30,6 @@ class ProfilePage extends React.Component {
         this.locationRef = React.createRef();
     }
 
-    componentDidMount() {
-        const options = {
-            types: ['(cities)'],
-            componentRestrictions: {country: "us"}
-        };
-        this.autocomplete = new window.google.maps.places.Autocomplete(this.locationRef.current, options);
-        window.google.maps.event.addListener(this.autocomplete, 'place_changed', () => console.log("Selected"));
-    }
-
     showModal = () => {
         this.setState({ editProfile: true });
         document.body.style.overflow = 'hidden';
@@ -66,16 +57,37 @@ class ProfilePage extends React.Component {
         })
     }
 
+    onPrefLocationSelect = (location) => {
+        this.setState({
+            ...this.state, userProfileContent: {
+                ...this.state.userProfileContent, 
+                    yourPreferences: {
+                        ...this.state.userProfileContent.yourPreferences, 
+                        preferredLocation: location
+                    }
+                }
+            }
+        );
+    }
+
     onEditClick = (form) => {
+        console.log(form);
         switch (form) {
             case ABOUT_YOU:
                 this.scrollTo(form);
                 this.setState({edittingAboutYou: true, inEditMode: true});
                 break;
             case YOUR_PREFERENCES:
-                    this.scrollTo(form);
-                    this.setState({edittingYourPreferences: true, inEditMode: true});
-                    break;
+                this.scrollTo(form);
+                this.setState({edittingYourPreferences: true, inEditMode: true}, () => {
+                    const options = {
+                        types: ['(cities)'],
+                        componentRestrictions: {country: "us"}
+                    };
+                    this.autocomplete = new window.google.maps.places.Autocomplete(this.locationRef.current, options);
+                    window.google.maps.event.addListener(this.autocomplete, 'place_changed', () => this.onPrefLocationSelect(this.locationRef.current.value));
+                });
+                break;
             default:
                 break;
         }
@@ -88,6 +100,19 @@ class ProfilePage extends React.Component {
                     aboutYou: {
                         ...this.state.userProfileContent.aboutYou, 
                         occupation: target.innerText
+                    }
+                }
+            }
+        );
+    }
+
+    onPrefGenderClick = ({ target }) => {
+        this.setState({
+            ...this.state, userProfileContent: {
+                ...this.state.userProfileContent, 
+                    yourPreferences: {
+                        ...this.state.userProfileContent.yourPreferences, 
+                        preferredGender: target.innerText
                     }
                 }
             }
@@ -137,6 +162,7 @@ class ProfilePage extends React.Component {
     }
 
     onInputChange = (e) => {
+        console.log(e.target)
         const re = /^[0-9\b]+$/;
         switch(e.target.name) {
             case 'name-input': 
@@ -155,6 +181,7 @@ class ProfilePage extends React.Component {
                 this.setState({...this.state, userProfile: {...this.state.userProfile, dobYear: e.target.value}});
                 break;
             case 'min':
+                console.log(e.target.value === '' || re.test(e.target.value))
                 if (e.target.value === '' || re.test(e.target.value)) {
                     this.setState({
                         ...this.state, userProfileContent: {
@@ -181,6 +208,18 @@ class ProfilePage extends React.Component {
                         }
                     );
                 }
+                break;
+            case 'pref-location':
+                this.setState({
+                    ...this.state, userProfileContent: {
+                        ...this.state.userProfileContent, 
+                            yourPreferences: {
+                                ...this.state.userProfileContent.yourPreferences, 
+                                preferredLocation: e.target.value
+                            }
+                        }
+                    }
+                );
                 break;
             default:
                 return;
@@ -241,13 +280,13 @@ class ProfilePage extends React.Component {
                         /> 
 
                         <YourPreferences 
-                            data={this.state.userProfileContent.aboutYou}
+                            data={this.state.userProfileContent.yourPreferences}
                             locationRef={this.locationRef} 
                             onInputChange={this.onInputChange}
                             editting={this.state.edittingYourPreferences} 
                             inEditMode={this.state.inEditMode}
                             onEditClick={this.onEditClick}
-                            onOccupationClick={this.onOccupationClick}
+                            onPrefGenderClick={this.onPrefGenderClick}
                             onAttributesClick={this.onAttributesClick}
                             updateContentProfile={this.props.updateContentProfile}
                             userId={this.state.userId}

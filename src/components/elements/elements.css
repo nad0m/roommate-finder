@@ -1,5 +1,5 @@
 .button-toggle {
-    margin-bottom: 10px;
+    margin: 0 10px 10px 10px;
     border: 0px;
     outline: 0;
     padding: 10px 20px;
@@ -26,15 +26,16 @@
 .input-custom-container {
     display: flex;
     align-items: center;
-    padding: 10px;
+    padding: 10px 20px;
     background-color: #f1f4f8;
     border-radius: 5px;
+    font-size: 15px;
 }
 
 .tag-custom-container {
     display: flex;
     align-items: center;
-    padding: 10px;
+    padding: 10px 20px;
     background-color: #f1f4f8;
     border-radius: 5px;
     font-size: 15px;

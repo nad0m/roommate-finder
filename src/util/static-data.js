@@ -8,6 +8,10 @@ export const attributesData = [
     "Can share Amazon Prime", "Can share Netflix", "Plays video games often"
 ];
 
+export const prefGenderData = [
+    "All males", "All females", "Any"
+];
+
 export const sidebarData = [
     {
         title: {

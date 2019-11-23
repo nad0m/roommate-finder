@@ -13,7 +13,7 @@ const Budget = ({ budgetLower, budgetUpper, onInputChange, editting }) => {
                         type="text"
                         size="small"
                         align="center"
-                        icon="$"
+                        icon={dollarIcon()}
                         value={budgetLower}
                         placeholder="00,000"
                         maxLength="5"
@@ -26,7 +26,7 @@ const Budget = ({ budgetLower, budgetUpper, onInputChange, editting }) => {
                         type="text"
                         size="small"
                         align="center"
-                        icon="$"
+                        icon={dollarIcon()}
                         value={budgetUpper}
                         placeholder="00,000"
                         maxLength="5"
@@ -41,19 +41,23 @@ const Budget = ({ budgetLower, budgetUpper, onInputChange, editting }) => {
         <div className="field-container">
             <Tag 
                 text={formatInt(budgetLower)}
-                icon="$"
+                icon={dollarIcon()}
                 size="small"
                 align="center"
             />
             <hr></hr>
             <Tag 
                 text={formatInt(budgetUpper)}
-                icon="$"
+                icon={dollarIcon()}
                 size="small"
                 align="center"
             />
         </div>
     );      
+}
+
+const dollarIcon = () => {
+    return <i className="dollar sign icon"></i>;
 }
 
 const formatInt = (val) => {

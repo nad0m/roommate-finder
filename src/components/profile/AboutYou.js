@@ -1,9 +1,10 @@
 import React from 'react';
 import Budget from './Budget';
-import Occupation from './Occupation';
 import Attributes from './Attributes';
 import EditControls from './EditControls';
 import ContentHeader from './ContentHeader';
+import GenericPicker from './GenericPicker';
+import { occupationData } from '../../util/static-data';
 import { ABOUT_YOU } from '../profile/types';
 
 class AboutYou extends React.Component {
@@ -34,10 +35,11 @@ class AboutYou extends React.Component {
                     />
 
                     <span>Occupation</span>
-                    <Occupation 
-                        occupation={this.props.data.occupation}
+                    <GenericPicker 
+                        text={this.props.data.occupation}
                         onButtonClick={this.props.onOccupationClick}
                         editting={this.props.editting}
+                        dataSet={occupationData}
                     />
 
                     <span>Attributes</span>

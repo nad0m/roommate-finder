@@ -1,8 +1,9 @@
 import React from 'react';
 import './elements.css';
 
-const Input = ({ name, type, size, align, maxLength, onInputChange, icon, value, placeholder }) => {
+const Input = ({ name, type, size, align, maxLength, onChange, icon, value, placeholder }) => {
 
+    console.log(name);
 
     return (
 
@@ -12,12 +13,11 @@ const Input = ({ name, type, size, align, maxLength, onInputChange, icon, value,
             </span>
             <input 
                 name={name}
-                type={type}
                 className={`input-custom ${align}`} 
-                defaultValue={value ? value : ""}
+                value={value ? value : ""}
                 placeholder={placeholder}
                 maxLength={maxLength}
-                onChange={onInputChange}
+                onChange={onChange}
             />
         </div>
     );

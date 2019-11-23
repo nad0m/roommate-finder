@@ -74,8 +74,20 @@ export const saveCurrentProfile = (user) => async (dispatch) => {
                 budgetUpper: null,
                 occupation: "",
                 attributes: []
+            },
+            yourPreferences: {
+                preferredLocation: "",
+                preferredGender: "",
+                houseSize: "",
+                housingType: ""
+            },
+            logistics: {
+                duration: null,
+                homeSchedule: null,
+                bathRatio: null
             }
         };
+        
         success = await registerNewProfile(user.uid, profile);
     }
 

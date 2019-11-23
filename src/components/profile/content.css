@@ -130,3 +130,7 @@ footer > .button-item:focus {
 .pac-icon {
     color: #4a90e2;
 }
+
+input, select, textarea, button {
+    font-family: inherit !important; 
+}
