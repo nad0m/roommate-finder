@@ -11,6 +11,8 @@ h3 {
 }
 
 .content-container {
+    opacity: 1.0;
+    transition: opacity 0.5s;
     padding: 50px;
 }
 
@@ -36,8 +38,8 @@ h3 {
     padding: 0;
 }
 
-.space-evenly {
-    justify-content: space-evenly;
+.flex-start {
+    justify-content: flex-start;
 }
 
 .content-container > span {

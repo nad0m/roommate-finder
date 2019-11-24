@@ -7,7 +7,7 @@ const Attributes = ({ attributes, onButtonClick, editting }) => {
 
     if (editting) {
         return (
-            <div className="field-container space-evenly">
+            <div className="field-container">
                 {renderButtons(attributes, onButtonClick)}
             </div> 
         )

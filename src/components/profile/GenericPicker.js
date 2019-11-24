@@ -6,7 +6,7 @@ const GenericPicker = ({ text, onButtonClick, editting, dataSet }) => {
 
     if (editting) {
         return (
-            <div className="field-container space-evenly">
+            <div className="field-container">
                 {renderButtons(dataSet, onButtonClick, text)}
             </div> 
         )

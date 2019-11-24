@@ -2,7 +2,7 @@ import React from 'react';
 import EditControls from './EditControls';
 import PreferredLocation from './PreferredLocation';
 import ContentHeader from './ContentHeader';
-import { prefGenderData } from '../../util/static-data';
+import { prefGenderData, houseSizeData, housingTypeData } from '../../util/static-data';
 import { YOUR_PREFERENCES } from '../profile/types';
 import GenericPicker from './GenericPicker';
 
@@ -38,6 +38,22 @@ const YourPreferences = ({ data, onEditClick, onInputChange, onPrefGenderClick, 
                 onButtonClick={onPrefGenderClick}
                 editting={editting}
                 dataSet={prefGenderData}
+            />
+
+            <span>Household Size</span>
+            <GenericPicker 
+                text={data.housingSize}
+                onButtonClick={onPrefGenderClick}
+                editting={editting}
+                dataSet={houseSizeData}
+            />
+
+            <span>Housing Type</span>
+            <GenericPicker 
+                text={data.housingType}
+                onButtonClick={onPrefGenderClick}
+                editting={editting}
+                dataSet={housingTypeData}
             />
             
 

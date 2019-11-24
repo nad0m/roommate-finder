@@ -92,7 +92,7 @@ class ProfileHeader extends React.Component {
                         </div>      
                         <div className="edit">
                             <button className="circular ui icon button" onClick={this.props.showModal}>
-                                <i className="pencil icon"></i>
+                                <i className="pencil icon blue"></i>
                             </button>
                         </div>
                     </div>

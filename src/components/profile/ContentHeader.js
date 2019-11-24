@@ -6,7 +6,7 @@ const ContentHeader = ({ title, disabledStyle, onEditClick }) => {
         <div className="edit-header">
             <h3>{title}</h3>
             <button className={disabledStyle} onClick={onEditClick}>
-                <i className="pencil icon"></i>
+                <i className="pencil icon blue"></i>
             </button>
         </div>
     );

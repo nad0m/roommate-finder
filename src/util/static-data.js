@@ -12,6 +12,14 @@ export const prefGenderData = [
     "All males", "All females", "Any"
 ];
 
+export const houseSizeData = [
+    "1-2", "3-4", "5-6", "7+"
+];
+
+export const housingTypeData = [
+    "House", "Apartment", "Mobile-home", "Shared room"
+];
+
 export const sidebarData = [
     {
         title: {

@@ -58,16 +58,16 @@ class ProfilePage extends React.Component {
     }
 
     onPrefLocationSelect = (location) => {
-        this.setState({
-            ...this.state, userProfileContent: {
-                ...this.state.userProfileContent, 
-                    yourPreferences: {
-                        ...this.state.userProfileContent.yourPreferences, 
+        this.setState((prevState) => {
+            return {
+                ...prevState, userProfileContent: {
+                    ...prevState.userProfileContent, yourPreferences: {
+                        ...prevState.userProfileContent.yourPreferences, 
                         preferredLocation: location
                     }
                 }
             }
-        );
+        });
     }
 
     onEditClick = (form) => {
@@ -94,53 +94,53 @@ class ProfilePage extends React.Component {
     }
 
     onOccupationClick = ({ target }) => {
-        this.setState({
-            ...this.state, userProfileContent: {
-                ...this.state.userProfileContent, 
-                    aboutYou: {
-                        ...this.state.userProfileContent.aboutYou, 
+        this.setState((prevState) => {
+            return {
+                ...prevState, userProfileContent: {
+                    ...prevState.userProfileContent, aboutYou: {
+                        ...prevState.userProfileContent.aboutYou, 
                         occupation: target.innerText
                     }
                 }
             }
-        );
+        });
     }
 
     onPrefGenderClick = ({ target }) => {
-        this.setState({
-            ...this.state, userProfileContent: {
-                ...this.state.userProfileContent, 
-                    yourPreferences: {
-                        ...this.state.userProfileContent.yourPreferences, 
+        this.setState((prevState) => {
+            return {
+                ...prevState, userProfileContent: {
+                    ...prevState.userProfileContent, yourPreferences: {
+                        ...prevState.userProfileContent.yourPreferences, 
                         preferredGender: target.innerText
                     }
                 }
             }
-        );
+        });
     }
 
     onAttributesClick = ({ target }) => {
         if (this.state.userProfileContent.aboutYou.attributes.indexOf(target.innerText) === -1) {
-            this.setState({
-                ...this.state, userProfileContent: {
-                    ...this.state.userProfileContent, 
+            this.setState((prevState) => {
+                return {...prevState, userProfileContent: {
+                    ...prevState.userProfileContent, 
                         aboutYou: {
-                            ...this.state.userProfileContent.aboutYou, 
+                            ...prevState.userProfileContent.aboutYou, 
                             attributes: [...this.state.userProfileContent.aboutYou.attributes, target.innerText]
                         }
                     }
-                }
+                }}
             );
         } else {
-            this.setState({
-                ...this.state, userProfileContent: {
-                    ...this.state.userProfileContent, 
+            this.setState((prevState) => {
+                return {...prevState, userProfileContent: {
+                    ...prevState.userProfileContent, 
                         aboutYou: {
-                            ...this.state.userProfileContent.aboutYou, 
-                            attributes: this.state.userProfileContent.aboutYou.attributes.filter(item => item !== target.innerText)
+                            ...prevState.userProfileContent.aboutYou, 
+                            attributes: prevState.userProfileContent.aboutYou.attributes.filter(item => item !== target.innerText)
                         }
                     }
-                }
+                }}
             );
         }
     }
